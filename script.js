@@ -24,6 +24,10 @@ const backButton = document.getElementById("backButton");
 const fullScreenButton = document.getElementById("fullScreenButton");
 const overlay = document.getElementById("overlay");
 
+const updatesButton = document.getElementById("updatesButton");
+const updatesOverlay = document.getElementById("updatesOverlay");
+const closeUpdates = document.getElementById("closeUpdates");
+
 // Display all game cards
 games.forEach(game => {
   const div = document.createElement("div");
@@ -52,6 +56,20 @@ function loadGame(game) {
   gameFrame.style.width = "80%";  
   gameFrame.style.height = "80%";
   fullScreenButton.textContent = "Full Screen";
+}
+
+// Exit game view
+function exitGameView() {
+  gameFrame.src = "";
+  gameView.style.display = "none";
+  overlay.style.opacity = "0";
+  overlay.style.pointerEvents = "none";
+  gameList.style.display = "flex";
+  searchInput.style.display = "block";
+  fullScreenButton.textContent = "Full Screen";
+  gameFrame.style.width = "80%";
+  gameFrame.style.height = "80%";
+  if (document.fullscreenElement) document.exitFullscreen();
 }
 
 // Back button
@@ -97,16 +115,12 @@ searchInput.addEventListener("input", e => {
   });
 });
 
-// Exit game view
-function exitGameView() {
-  gameFrame.src = "";
-  gameView.style.display = "none";
-  overlay.style.opacity = "0";
-  overlay.style.pointerEvents = "none";
-  gameList.style.display = "flex";
-  searchInput.style.display = "block";
-  fullScreenButton.textContent = "Full Screen";
-  gameFrame.style.width = "80%";
-  gameFrame.style.height = "80%";
-  if (document.fullscreenElement) document.exitFullscreen();
-}
+// Updates button
+updatesButton.addEventListener("click", () => {
+  updatesOverlay.classList.add("show");
+});
+
+// Close updates overlay
+closeUpdates.addEventListener("click", () => {
+  updatesOverlay.classList.remove("show");
+});
