@@ -104,26 +104,35 @@ header p { margin: 5px 0 15px; font-size: 1em; color: #aaa; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
-  transition: opacity 0.4s ease;
+  position: fixed;   /* fix to viewport */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 10;
+  transition: opacity 0.4s ease;
 }
 
 #gameFrame {
   border: none;
   border-radius: 10px;
-  width: 80%;
-  height: 80%;
+  width: 90vw;
+  height: 80vh;
+  max-width: 1600px;
+  max-height: 900px;
   transition: width 0.4s, height 0.4s, opacity 0.4s ease;
-  z-index: 11;
+  z-index: 12;
+  background: #000;
 }
 
 /* GAME BUTTONS */
 .game-buttons {
-  margin-top: 15px;
+  margin-top: 20px;
   display: flex;
   gap: 15px;
   justify-content: center;
+  z-index: 15;
+  position: relative;
 }
 
 #backButton, #fullScreenButton, #updatesButton {
@@ -135,8 +144,6 @@ header p { margin: 5px 0 15px; font-size: 1em; color: #aaa; }
   color: #00e5ff;
   cursor: pointer;
   transition: all 0.25s ease;
-  z-index: 12;
-  position: relative;
 }
 
 #backButton:hover, #fullScreenButton:hover, #updatesButton:hover {
