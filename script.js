@@ -19,29 +19,22 @@ const backButton = document.getElementById("backButton");
 const fullScreenButton = document.getElementById("fullScreenButton");
 const overlay = document.getElementById("overlay");
 
-// Display games as cards
-function displayGames(list) {
-  gameList.innerHTML = "";
-  list.forEach(game => {
-    const div = document.createElement("div");
-    div.className = "game";
-
-    div.innerHTML = `
-      <div class="game-inner">
-        <div class="game-front">
-          ${game.image ? `<img src="${game.image}" alt="${game.name}">` : ""}
-          <h3>${game.name}</h3>
-        </div>
-        <div class="game-back">
-          Play ${game.name}
-        </div>
+// Display all game cards initially
+games.forEach(game => {
+  const div = document.createElement("div");
+  div.className = "game";
+  div.innerHTML = `
+    <div class="game-inner">
+      <div class="game-front">
+        ${game.image ? `<img src="${game.image}" alt="${game.name}">` : ""}
+        <h3>${game.name}</h3>
       </div>
-    `;
-
-    div.addEventListener("click", () => loadGame(game));
-    gameList.appendChild(div);
-  });
-}
+      <div class="game-back">Play ${game.name}</div>
+    </div>
+  `;
+  div.addEventListener("click", () => loadGame(game));
+  gameList.appendChild(div);
+});
 
 // Load game
 function loadGame(game) {
@@ -53,15 +46,15 @@ function loadGame(game) {
   gameFrame.src = game.url;
 }
 
-// Back button
+// Back button: show the menu exactly as it was
 backButton.addEventListener("click", () => {
-  gameFrame.src = "";
-  gameView.style.display = "none";
+  gameFrame.src = "";              // stop iframe
+  gameView.style.display = "none"; // hide game
   overlay.style.opacity = "0";
   overlay.style.pointerEvents = "none";
-  gameList.style.display = "flex";
-  searchInput.style.display = "block";
-
+  gameList.style.display = "flex"; // show the grid
+  searchInput.style.display = "block"; // show search
+  // Do NOT clear searchInput.value or re-render the grid
   if (document.fullscreenElement) {
     document.exitFullscreen();
   }
@@ -69,23 +62,19 @@ backButton.addEventListener("click", () => {
 
 // Fullscreen button
 fullScreenButton.addEventListener("click", () => {
-  if (gameView.requestFullscreen) {
-    gameView.requestFullscreen();
-  } else if (gameView.webkitRequestFullscreen) {
-    gameView.webkitRequestFullscreen();
-  } else if (gameView.msRequestFullscreen) {
-    gameView.msRequestFullscreen();
-  }
+  if (gameView.requestFullscreen) gameView.requestFullscreen();
+  else if (gameView.webkitRequestFullscreen) gameView.webkitRequestFullscreen();
+  else if (gameView.msRequestFullscreen) gameView.msRequestFullscreen();
+
   gameFrame.style.width = "100%";
   gameFrame.style.height = "100%";
 });
 
-// Search filter
+// Search filter: hide/show existing cards only
 searchInput.addEventListener("input", e => {
   const value = e.target.value.toLowerCase();
-  const filtered = games.filter(g => g.name.toLowerCase().includes(value));
-  displayGames(filtered);
+  Array.from(gameList.children).forEach(card => {
+    const name = card.querySelector("h3").textContent.toLowerCase();
+    card.style.display = name.includes(value) ? "flex" : "none";
+  });
 });
-
-// Initial load
-displayGames(games);
