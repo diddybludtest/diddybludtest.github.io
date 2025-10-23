@@ -15,7 +15,7 @@ const updatesButton = document.getElementById("updatesButton");
 const updatesOverlay = document.getElementById("updatesOverlay");
 const closeUpdates = document.getElementById("closeUpdates");
 
-// Render game cards
+// Display games
 games.forEach(game => {
   const div = document.createElement("div");
   div.className = "game";
@@ -34,77 +34,77 @@ games.forEach(game => {
 
 // Load game
 function loadGame(game) {
-  overlay.style.opacity = "1";
-  overlay.style.pointerEvents = "auto";
   gameList.style.opacity = 0;
+  setTimeout(() => { gameList.style.display = "none"; }, 400);
+
   searchInput.style.opacity = 0;
+  setTimeout(() => { searchInput.style.display = "none"; }, 400);
 
-  setTimeout(() => {
-    gameList.style.display = "none";
-    searchInput.style.display = "none";
-    gameView.style.display = "flex";
-    gameFrame.src = game.url;
-    gameFrame.style.opacity = 0;
-    backButton.style.display = "inline-block";
-    fullScreenButton.style.display = "inline-block";
+  overlay.style.opacity = 1;
+  overlay.style.pointerEvents = "auto";
 
-    setTimeout(() => gameFrame.style.opacity = 1, 50);
-  }, 400);
+  gameView.style.display = "flex";
+  gameView.style.opacity = 0;
+  setTimeout(() => { gameView.style.opacity = 1; }, 50);
+
+  gameFrame.src = game.url;
+  gameFrame.style.width = "80%";
+  gameFrame.style.height = "80%";
+  fullScreenButton.textContent = "Full Screen";
 }
 
-// Exit game
+// Back to menu
+backButton.addEventListener("click", exitGameView);
+
 function exitGameView() {
-  gameFrame.style.opacity = 0;
+  gameFrame.src = "";
+  gameView.style.opacity = 0;
+  overlay.style.opacity = 0;
+  overlay.style.pointerEvents = "none";
+  setTimeout(() => { gameView.style.display = "none"; }, 400);
+
+  gameList.style.display = "flex";
+  searchInput.style.display = "block";
   setTimeout(() => {
-    gameFrame.src = "";
-    gameView.style.display = "none";
-    overlay.style.opacity = 0;
-    overlay.style.pointerEvents = "none";
-    gameList.style.display = "flex";
-    searchInput.style.display = "block";
     gameList.style.opacity = 1;
     searchInput.style.opacity = 1;
-    backButton.style.display = "none";
-    fullScreenButton.textContent = "Full Screen";
-    gameFrame.style.width = "90vw";
-    gameFrame.style.height = "80vh";
-    if (document.fullscreenElement) document.exitFullscreen();
-  }, 300);
+  }, 50);
+
+  fullScreenButton.textContent = "Full Screen";
+  gameFrame.style.width = "80%";
+  gameFrame.style.height = "80%";
+
+  if (document.fullscreenElement) document.exitFullscreen();
 }
 
-// Fullscreen toggle
+// Fullscreen
 fullScreenButton.addEventListener("click", () => {
   if (!document.fullscreenElement) {
-    if (gameView.requestFullscreen) gameView.requestFullscreen();
+    gameView.requestFullscreen();
     overlay.style.pointerEvents = "none";
-    gameFrame.style.width = "100vw";
-    gameFrame.style.height = "100vh";
+    gameFrame.style.width = "100%";
+    gameFrame.style.height = "100%";
     fullScreenButton.textContent = "Exit Full Screen";
   } else {
     document.exitFullscreen();
-    overlay.style.pointerEvents = "auto";
-    gameFrame.style.width = "90vw";
-    gameFrame.style.height = "80vh";
-    fullScreenButton.textContent = "Full Screen";
   }
 });
 
-// Detect exit fullscreen
 document.addEventListener("fullscreenchange", () => {
   if (!document.fullscreenElement) {
     overlay.style.pointerEvents = "auto";
-    gameFrame.style.width = "90vw";
-    gameFrame.style.height = "80vh";
+    gameFrame.style.width = "80%";
+    gameFrame.style.height = "80%";
     fullScreenButton.textContent = "Full Screen";
   } else {
     overlay.style.pointerEvents = "none";
-    gameFrame.style.width = "100vw";
-    gameFrame.style.height = "100vh";
+    gameFrame.style.width = "100%";
+    gameFrame.style.height = "100%";
     fullScreenButton.textContent = "Exit Full Screen";
   }
 });
 
-// Search filter
+// Search
 searchInput.addEventListener("input", e => {
   const value = e.target.value.toLowerCase();
   Array.from(gameList.children).forEach(card => {
@@ -113,9 +113,11 @@ searchInput.addEventListener("input", e => {
   });
 });
 
-// Back button
-backButton.addEventListener("click", exitGameView);
-
 // Updates overlay
-updatesButton.addEventListener("click", () => updatesOverlay.classList.add("show"));
-closeUpdates.addEventListener("click", () => updatesOverlay.classList.remove("show"));
+updatesButton.addEventListener("click", () => {
+  updatesOverlay.classList.add("show");
+});
+
+closeUpdates.addEventListener("click", () => {
+  updatesOverlay.classList.remove("show");
+});
