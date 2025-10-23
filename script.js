@@ -15,17 +15,20 @@ const gameList = document.getElementById("gameList");
 const searchInput = document.getElementById("search");
 const gameFrame = document.getElementById("gameFrame");
 const backButton = document.getElementById("backButton");
+const overlay = document.getElementById("overlay");
 
 // Display game cards
 function displayGames(list) {
   gameList.innerHTML = "";
-  list.forEach(game => {
+  list.forEach((game, index) => {
     const div = document.createElement("div");
     div.className = "game";
+    div.style.animationDelay = `${index * 0.1}s`; // stagger fade
+
     div.innerHTML = `
       <div class="game-inner">
         <div class="game-front">
-          ${game.image ? `<img src="${game.image}" alt="${game.name}" class="game-thumb">` : ""}
+          ${game.image ? `<img src="${game.image}" alt="${game.name}">` : ""}
           <h3>${game.name}</h3>
         </div>
         <div class="game-back">
@@ -33,14 +36,12 @@ function displayGames(list) {
         </div>
       </div>
     `;
-    div.addEventListener("click", () => {
-      loadGame(game);
-    });
+    div.addEventListener("click", () => loadGame(game));
     gameList.appendChild(div);
   });
 }
 
-// Smooth fade-out helper
+// Fade helpers
 function fadeOut(element, callback) {
   element.style.opacity = 1;
   element.style.transition = "opacity 0.4s ease";
@@ -51,37 +52,33 @@ function fadeOut(element, callback) {
   }, 400);
 }
 
-// Smooth fade-in helper
 function fadeIn(element, display = "block") {
   element.style.display = display;
   element.style.opacity = 0;
   element.style.transition = "opacity 0.4s ease";
-  setTimeout(() => {
-    element.style.opacity = 1;
-  }, 10);
+  setTimeout(() => element.style.opacity = 1, 10);
 }
 
-// Load game with fade transition
+// Load game
 function loadGame(game) {
-  fadeOut(gameList, () => {
-    fadeOut(searchInput);
-    gameFrame.src = game.url;
-    fadeIn(gameFrame, "block");
-    fadeIn(backButton, "block");
-  });
+  fadeOut(gameList, () => fadeOut(searchInput));
+  fadeIn(overlay, "block");
+  overlay.style.pointerEvents = "auto";
+  gameFrame.src = game.url;
+  fadeIn(gameFrame, "block");
+  fadeIn(backButton, "block");
 }
 
-// Back to menu with fade transition
+// Back to menu
 backButton.addEventListener("click", () => {
-  fadeOut(gameFrame, () => {
-    gameFrame.src = "";
-    fadeOut(backButton);
-    fadeIn(searchInput, "block");
-    fadeIn(gameList, "grid");
-  });
+  fadeOut(gameFrame, () => gameFrame.src = "");
+  fadeOut(backButton);
+  fadeOut(overlay, () => overlay.style.pointerEvents = "none");
+  fadeIn(searchInput, "block");
+  fadeIn(gameList, "grid");
 });
 
-// Search bar
+// Search
 searchInput.addEventListener("input", e => {
   const value = e.target.value.toLowerCase();
   const filtered = games.filter(g => g.name.toLowerCase().includes(value));
