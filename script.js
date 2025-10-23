@@ -1,7 +1,19 @@
 const games = [
-  { name: "Tiny Fishing", url: "games/tinyfishing/index.html", image: "games/tinyfishing/tiny-fishing.png" },
-  { name: "Slope", url: "games/slope/index.html", image: "games/slope/thumb.png" },
-  { name: "Retro Bowl", url: "games/retro-bowl/index.html", image: "games/retro-bowl/thumby.jpg" },
+  { 
+    name: "Tiny Fishing", 
+    url: "games/tinyfishing/index.html", 
+    image: "games/tinyfishing/tiny-fishing.png"
+  },
+  { 
+    name: "Slope", 
+    url: "games/slope/index.html", 
+    image: "games/slope/thumb.png"
+  },
+  { 
+    name: "Retro Bowl", 
+    url: "games/retro-bowl/index.html", 
+    image: "games/retro-bowl/thumby.jpg"
+  },
 ];
 
 const gameList = document.getElementById("gameList");
@@ -15,7 +27,7 @@ const updatesButton = document.getElementById("updatesButton");
 const updatesOverlay = document.getElementById("updatesOverlay");
 const closeUpdates = document.getElementById("closeUpdates");
 
-// Display game cards
+// DISPLAY GAME CARDS
 games.forEach(game => {
   const div = document.createElement("div");
   div.className = "game";
@@ -32,89 +44,92 @@ games.forEach(game => {
   gameList.appendChild(div);
 });
 
-// Load game with fade
+// LOAD GAME
 function loadGame(game) {
+  overlay.style.opacity = "1";
+  overlay.style.pointerEvents = "auto";
   gameList.style.opacity = 0;
   searchInput.style.opacity = 0;
 
   setTimeout(() => {
     gameList.style.display = "none";
     searchInput.style.display = "none";
-    overlay.classList.add("show");
-    gameView.classList.add("show");
+    gameView.style.display = "flex";
     gameFrame.src = game.url;
-    gameFrame.style.width = "90vw";
-    gameFrame.style.height = "80vh";
-    fullScreenButton.textContent = "Full Screen";
-    gameList.style.opacity = 1;
-    searchInput.style.opacity = 1;
-  }, 300);
-}
-
-// Exit game view
-function exitGameView() {
-  gameView.classList.remove("show");
-  overlay.classList.remove("show");
-
-  setTimeout(() => {
-    gameFrame.src = "";
-    gameList.style.display = "flex";
-    searchInput.style.display = "block";
-    fullScreenButton.textContent = "Full Screen";
-    gameFrame.style.width = "90vw";
-    gameFrame.style.height = "80vh";
-    if (document.fullscreenElement) document.exitFullscreen();
+    gameFrame.style.width = "80%";
+    gameFrame.style.height = "80%";
+    backButton.style.display = "inline-block";
   }, 400);
 }
 
-backButton.addEventListener("click", exitGameView);
+// BACK BUTTON
+backButton.addEventListener("click", () => {
+  exitGameView();
+});
 
-// Fullscreen button
+// FULLSCREEN BUTTON
 fullScreenButton.addEventListener("click", () => {
   if (!document.fullscreenElement) {
     gameView.requestFullscreen?.();
-    overlay.style.pointerEvents = "none";
-    gameFrame.style.width = "100vw";
-    gameFrame.style.height = "100vh";
     fullScreenButton.textContent = "Exit Full Screen";
+    overlay.style.pointerEvents = "none";
+    gameFrame.style.width = "100%";
+    gameFrame.style.height = "100%";
   } else {
     document.exitFullscreen?.();
-    overlay.style.pointerEvents = "auto";
-    gameFrame.style.width = "90vw";
-    gameFrame.style.height = "80vh";
-    fullScreenButton.textContent = "Full Screen";
   }
 });
 
-// Fullscreen exit detection
+// HANDLE ESC / FULLSCREEN EXIT
 document.addEventListener("fullscreenchange", () => {
   if (!document.fullscreenElement) {
-    overlay.style.pointerEvents = "auto";
-    gameFrame.style.width = "90vw";
-    gameFrame.style.height = "80vh";
     fullScreenButton.textContent = "Full Screen";
+    overlay.style.pointerEvents = "auto";
+    gameFrame.style.width = "80%";
+    gameFrame.style.height = "80%";
   } else {
     overlay.style.pointerEvents = "none";
-    gameFrame.style.width = "100vw";
-    gameFrame.style.height = "100vh";
+    gameFrame.style.width = "100%";
+    gameFrame.style.height = "100%";
   }
 });
 
-// Search filter
+// SEARCH FILTER
 searchInput.addEventListener("input", e => {
   const value = e.target.value.toLowerCase();
   Array.from(gameList.children).forEach(card => {
     const name = card.querySelector("h3").textContent.toLowerCase();
-    card.style.display = name.includes(value) ? "flex" : "none";
+    card.style.display = name.includes(value) ? "block" : "none";
   });
 });
 
-// Updates button
+// UPDATES BUTTON
 updatesButton.addEventListener("click", () => {
   updatesOverlay.classList.add("show");
+  overlay.style.opacity = "1";
+  overlay.style.pointerEvents = "auto";
 });
 
-// Close updates overlay
+// CLOSE UPDATES
 closeUpdates.addEventListener("click", () => {
   updatesOverlay.classList.remove("show");
+  overlay.style.opacity = "0";
+  overlay.style.pointerEvents = "none";
 });
+
+// EXIT GAME VIEW
+function exitGameView() {
+  gameFrame.src = "";
+  gameView.style.display = "none";
+  overlay.style.opacity = "0";
+  overlay.style.pointerEvents = "none";
+  gameList.style.display = "grid";
+  gameList.style.opacity = 1;
+  searchInput.style.display = "block";
+  searchInput.style.opacity = 1;
+  backButton.style.display = "none";
+  fullScreenButton.textContent = "Full Screen";
+  gameFrame.style.width = "80%";
+  gameFrame.style.height = "80%";
+  if (document.fullscreenElement) document.exitFullscreen();
+}
