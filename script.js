@@ -7,7 +7,7 @@ const games = [
   { 
     name: "Slope", 
     url: "games/slope/index.html", 
-    image: "games/baldisbasics/thumbnail.jpg" // optional image
+    image: "games/slope/thumb.png" // optional image
   },
 ];
 
