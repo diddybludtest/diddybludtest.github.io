@@ -16,6 +16,8 @@ const searchInput = document.getElementById("search");
 const gameFrame = document.getElementById("gameFrame");
 const backButton = document.getElementById("backButton");
 const overlay = document.getElementById("overlay");
+const fullScreenButton = document.getElementById("fullScreenButton");
+const gameView = document.getElementById("gameView");
 
 // Display game cards
 function displayGames(list) {
@@ -65,17 +67,24 @@ function loadGame(game) {
   fadeIn(overlay, "block");
   overlay.style.pointerEvents = "auto";
   gameFrame.src = game.url;
-  fadeIn(gameFrame, "block");
-  fadeIn(backButton, "block");
+  fadeIn(gameView, "flex");
 }
 
-// Back to menu
+// Back button
 backButton.addEventListener("click", () => {
-  fadeOut(gameFrame, () => gameFrame.src = "");
-  fadeOut(backButton);
+  fadeOut(gameView, () => gameFrame.src = "");
   fadeOut(overlay, () => overlay.style.pointerEvents = "none");
   fadeIn(searchInput, "block");
   fadeIn(gameList, "grid");
+});
+
+// Full screen button
+fullScreenButton.addEventListener("click", () => {
+  if (!document.fullscreenElement) {
+    gameView.requestFullscreen().catch(err => alert(`Error: ${err.message}`));
+  } else {
+    document.exitFullscreen();
+  }
 });
 
 // Search
