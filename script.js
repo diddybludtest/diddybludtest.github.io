@@ -15,7 +15,7 @@ const updatesButton = document.getElementById("updatesButton");
 const updatesOverlay = document.getElementById("updatesOverlay");
 const closeUpdates = document.getElementById("closeUpdates");
 
-// DISPLAY GAME CARDS
+// Render game cards
 games.forEach(game => {
   const div = document.createElement("div");
   div.className = "game";
@@ -32,7 +32,7 @@ games.forEach(game => {
   gameList.appendChild(div);
 });
 
-// LOAD GAME WITH FADE
+// Load game
 function loadGame(game) {
   overlay.style.opacity = "1";
   overlay.style.pointerEvents = "auto";
@@ -40,82 +40,30 @@ function loadGame(game) {
   searchInput.style.opacity = 0;
 
   setTimeout(() => {
-    gameList.style.display = "flex";
     gameList.style.display = "none";
     searchInput.style.display = "none";
     gameView.style.display = "flex";
     gameFrame.src = game.url;
     gameFrame.style.opacity = 0;
     backButton.style.display = "inline-block";
+    fullScreenButton.style.display = "inline-block";
+    fullScreenButton.textContent = "Full Screen";
 
     setTimeout(() => gameFrame.style.opacity = 1, 50);
   }, 400);
 }
 
-// BACK BUTTON
-backButton.addEventListener("click", () => exitGameView());
-
-// FULLSCREEN BUTTON
-fullScreenButton.addEventListener("click", () => {
-  if (!document.fullscreenElement) {
-    gameView.requestFullscreen?.();
-    fullScreenButton.textContent = "Exit Full Screen";
-    overlay.style.pointerEvents = "none";
-    gameFrame.style.width = "100%";
-    gameFrame.style.height = "100%";
-  } else {
-    document.exitFullscreen?.();
-  }
-});
-
-// FULLSCREEN EXIT HANDLER
-document.addEventListener("fullscreenchange", () => {
-  if (!document.fullscreenElement) {
-    fullScreenButton.textContent = "Full Screen";
-    overlay.style.pointerEvents = "auto";
-    gameFrame.style.width = "80%";
-    gameFrame.style.height = "80%";
-  } else {
-    overlay.style.pointerEvents = "none";
-    gameFrame.style.width = "100%";
-    gameFrame.style.height = "100%";
-  }
-});
-
-// SEARCH FILTER
-searchInput.addEventListener("input", e => {
-  const value = e.target.value.toLowerCase();
-  Array.from(gameList.children).forEach(card => {
-    const name = card.querySelector("h3").textContent.toLowerCase();
-    card.style.display = name.includes(value) ? "block" : "none";
-  });
-});
-
-// UPDATES BUTTON
-updatesButton.addEventListener("click", () => {
-  updatesOverlay.classList.add("show");
-  overlay.style.opacity = "1";
-  overlay.style.pointerEvents = "auto";
-});
-
-// CLOSE UPDATES
-closeUpdates.addEventListener("click", () => {
-  updatesOverlay.classList.remove("show");
-  overlay.style.opacity = "0";
-  overlay.style.pointerEvents = "none";
-});
-
-// EXIT GAME VIEW
+// Exit game
 function exitGameView() {
   gameFrame.style.opacity = 0;
   setTimeout(() => {
     gameFrame.src = "";
     gameView.style.display = "none";
-    overlay.style.opacity = "0";
+    overlay.style.opacity = 0;
     overlay.style.pointerEvents = "none";
     gameList.style.display = "flex";
-    gameList.style.opacity = 1;
     searchInput.style.display = "block";
+    gameList.style.opacity = 1;
     searchInput.style.opacity = 1;
     backButton.style.display = "none";
     fullScreenButton.textContent = "Full Screen";
@@ -124,3 +72,51 @@ function exitGameView() {
     if (document.fullscreenElement) document.exitFullscreen();
   }, 300);
 }
+
+// Fullscreen toggle
+fullScreenButton.addEventListener("click", () => {
+  if (!document.fullscreenElement) {
+    if (gameView.requestFullscreen) gameView.requestFullscreen();
+    overlay.style.pointerEvents = "none";
+    gameFrame.style.width = "100%";
+    gameFrame.style.height = "100%";
+    fullScreenButton.textContent = "Exit Full Screen";
+  } else {
+    document.exitFullscreen();
+    overlay.style.pointerEvents = "auto";
+    gameFrame.style.width = "80%";
+    gameFrame.style.height = "80%";
+    fullScreenButton.textContent = "Full Screen";
+  }
+});
+
+// Detect exit fullscreen
+document.addEventListener("fullscreenchange", () => {
+  if (!document.fullscreenElement) {
+    overlay.style.pointerEvents = "auto";
+    gameFrame.style.width = "80%";
+    gameFrame.style.height = "80%";
+    fullScreenButton.textContent = "Full Screen";
+  } else {
+    overlay.style.pointerEvents = "none";
+    gameFrame.style.width = "100%";
+    gameFrame.style.height = "100%";
+    fullScreenButton.textContent = "Exit Full Screen";
+  }
+});
+
+// Search filter
+searchInput.addEventListener("input", e => {
+  const value = e.target.value.toLowerCase();
+  Array.from(gameList.children).forEach(card => {
+    const name = card.querySelector("h3").textContent.toLowerCase();
+    card.style.display = name.includes(value) ? "flex" : "none";
+  });
+});
+
+// Back button
+backButton.addEventListener("click", exitGameView);
+
+// Updates overlay
+updatesButton.addEventListener("click", () => updatesOverlay.classList.add("show"));
+closeUpdates.addEventListener("click", () => updatesOverlay.classList.remove("show"));
