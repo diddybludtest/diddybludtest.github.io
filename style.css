@@ -45,12 +45,26 @@ p {
   justify-content: center;
 }
 
-/* 🧩 Game Card Container (flip effect) */
+/* ✨ Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .game {
   perspective: 1000px;
   cursor: pointer;
+  opacity: 0; /* start invisible */
+  animation: fadeIn 0.6s ease forwards;
 }
 
+/* 🧩 Flip card inner */
 .game-inner {
   position: relative;
   width: 100%;
@@ -108,7 +122,7 @@ p {
   border-radius: 15px;
 }
 
-/* 🕹️ Iframe Display */
+/* 🕹️ Iframe */
 iframe {
   width: 90%;
   height: 80vh;
@@ -129,11 +143,12 @@ iframe {
   background-color: #00bcd4;
   color: #fff;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.2s;
 }
 
 #backButton:hover {
   background-color: #0099b3;
+  transform: scale(1.05);
 }
 
 /* ⚙️ Footer */
