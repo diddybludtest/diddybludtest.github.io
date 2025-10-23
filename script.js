@@ -1,102 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Unblocked Games Hub</title>
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1006/1006771.png">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #0f172a;
-      color: white;
-      text-align: center;
-      margin: 0;
-    }
+const games = [
+  { name: "1v1.lol", url: "https://1v1.lol" },
+  { name: "Cookie Clicker", url: "https://orteil.dashnet.org/cookieclicker/" },
+  { name: "Run 3", url: "https://sites.google.com/site/unblockedgames66ez/run-3" },
+  { name: "Retro Bowl", url: "https://now.gg/play/new-star-games/2647/retro-bowl" },
+  { name: "Slope", url: "https://mathgames66.github.io/slope/" },
+  { name: "Drift Hunters", url: "https://drifthunters.io/" },
+  { name: "Minecraft Classic", url: "https://classic.minecraft.net/" },
+  { name: "Tetris", url: "https://tetris.com/play-tetris" },
+  { name: "Shell Shockers", url: "https://shellshock.io/" },
+  { name: "Subway Surfers", url: "https://now.gg/play/2753/subway-surfers" },
+];
 
-    header {
-      background: #1e293b;
-      padding: 20px;
-      box-shadow: 0 0 10px #000;
-    }
+const gameList = document.getElementById("gameList");
+const searchInput = document.getElementById("search");
+const gameFrame = document.getElementById("gameFrame");
+const backButton = document.getElementById("backButton");
 
-    h1 { margin: 0; font-size: 2rem; }
+function displayGames(list) {
+  gameList.innerHTML = "";
+  list.forEach((game) => {
+    const div = document.createElement("div");
+    div.className = "game";
+    div.innerHTML = `<h3>${game.name}</h3>`;
+    div.addEventListener("click", () => loadGame(game));
+    gameList.appendChild(div);
+  });
+}
 
-    input[type="text"] {
-      width: 60%;
-      padding: 10px;
-      margin-top: 15px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-    }
+function loadGame(game) {
+  gameList.style.display = "none";
+  searchInput.style.display = "none";
+  gameFrame.src = game.url;
+  gameFrame.style.display = "block";
+  backButton.style.display = "inline-block";
+}
 
-    .games {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      padding: 30px;
-    }
+backButton.addEventListener("click", () => {
+  gameFrame.style.display = "none";
+  backButton.style.display = "none";
+  searchInput.style.display = "inline-block";
+  gameList.style.display = "grid";
+  gameFrame.src = "";
+});
 
-    .game {
-      background: #1e293b;
-      border-radius: 10px;
-      padding: 10px;
-      transition: 0.2s;
-    }
+searchInput.addEventListener("input", (e) => {
+  const value = e.target.value.toLowerCase();
+  const filtered = games.filter((g) => g.name.toLowerCase().includes(value));
+  displayGames(filtered);
+});
 
-    .game:hover {
-      transform: scale(1.05);
-      background: #334155;
-      cursor: pointer;
-    }
-
-    iframe {
-      width: 90%;
-      height: 600px;
-      border: none;
-      border-radius: 10px;
-      margin-top: 20px;
-      display: none;
-    }
-
-    #backButton {
-      display: none;
-      margin-top: 15px;
-      background: #38bdf8;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    #backButton:hover { background: #0ea5e9; }
-
-    footer {
-      background: #1e293b;
-      padding: 15px;
-      font-size: 14px;
-      color: #94a3b8;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>🎮 Unblocked Games Hub</h1>
-    <input type="text" id="search" placeholder="Search for a game...">
-  </header>
-
-  <div id="gameList" class="games"></div>
-
-  <iframe id="gameFrame"></iframe>
-  <br>
-  <button id="backButton">🔙 Back to Menu</button>
-
-  <footer>
-    <p>Made by <a href="https://github.com/YOUR-USERNAME" target="_blank">YOUR NAME</a> | Hosted on GitHub Pages</p>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+// Load all games on start
+displayGames(games);
