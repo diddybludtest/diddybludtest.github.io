@@ -1,68 +1,151 @@
-#gameList {
+/* 🌑 Base UI */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background: #0d0d0d;
+  color: #fff;
+  text-align: center;
+}
+
+/* 🎮 Header */
+header {
+  margin-top: 20px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.3rem;
+  color: #00bcd4;
+}
+
+p {
+  color: #ccc;
+  margin-bottom: 15px;
+}
+
+/* 🔍 Search Bar */
+#search {
+  padding: 10px 15px;
+  width: 250px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+/* 🕹️ Game Grid */
+.games {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 20px;
-  justify-items: center;
-  padding: 20px;
+  width: 80%;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+/* 🧩 Game Card Container (flip effect) */
+.game {
   perspective: 1000px;
-}
-
-.game-card {
-  width: 180px;
-  height: 220px;
   cursor: pointer;
-  perspective: inherit;
 }
 
-.card-inner {
+.game-inner {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 230px;
+  text-align: center;
   transition: transform 0.6s;
   transform-style: preserve-3d;
 }
 
-.card-inner.flipped {
+.game:hover .game-inner {
   transform: rotateY(180deg);
 }
 
-.card-front,
-.card-back {
+/* 🖼️ Card Faces */
+.game-front,
+.game-back {
   position: absolute;
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 15px;
+  background: #1b1b1b;
   backface-visibility: hidden;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.game-front {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
-.card-front {
-  background: #1e1e1e;
+.game-front img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
-.card-back {
-  background: #2c2c2c;
+.game-front h3 {
+  margin: 10px 0;
+  font-size: 1.1rem;
+}
+
+.game-back {
+  background: linear-gradient(145deg, #00bcd4, #006f82);
   color: white;
   transform: rotateY(180deg);
-  flex-direction: column;
-}
-
-.game-thumb {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.no-thumb {
-  background: #333;
-  color: #aaa;
-  font-size: 1.1em;
   display: flex;
-  align-items: center;
   justify-content: center;
-  height: 100%;
+  align-items: center;
+  font-size: 1.1rem;
+  border-radius: 15px;
+}
+
+/* 🕹️ Iframe Display */
+iframe {
+  width: 90%;
+  height: 80vh;
+  border: none;
+  border-radius: 12px;
+  margin-top: 30px;
+  display: none;
+}
+
+/* 🔙 Back Button */
+#backButton {
+  display: none;
+  margin-top: 15px;
+  padding: 10px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #00bcd4;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#backButton:hover {
+  background-color: #0099b3;
+}
+
+/* ⚙️ Footer */
+footer {
+  margin-top: 40px;
+  color: #777;
+  font-size: 0.9rem;
+}
+footer a {
+  color: #00bcd4;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
 }
