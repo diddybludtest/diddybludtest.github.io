@@ -49,22 +49,18 @@ function loadGame(game) {
   overlay.style.pointerEvents = "auto";
   gameView.style.display = "flex";
   gameFrame.src = game.url;
-  gameFrame.style.width = "80%";  // ensure default size when opening
+  gameFrame.style.width = "80%";  
   gameFrame.style.height = "80%";
   fullScreenButton.textContent = "Full Screen";
 }
 
 // Back button
-backButton.addEventListener("click", () => {
-  exitGameView();
-});
+backButton.addEventListener("click", exitGameView);
 
 // Fullscreen button
 fullScreenButton.addEventListener("click", () => {
   if (!document.fullscreenElement) {
     if (gameView.requestFullscreen) gameView.requestFullscreen();
-    else if (gameView.webkitRequestFullscreen) gameView.webkitRequestFullscreen();
-    else if (gameView.msRequestFullscreen) gameView.msRequestFullscreen();
     fullScreenButton.textContent = "Exit Full Screen";
     overlay.style.pointerEvents = "none";
     gameFrame.style.width = "100%";
@@ -78,7 +74,7 @@ fullScreenButton.addEventListener("click", () => {
   }
 });
 
-// Detect fullscreen change (Esc key)
+// Fullscreen exit detection
 document.addEventListener("fullscreenchange", () => {
   if (!document.fullscreenElement) {
     fullScreenButton.textContent = "Full Screen";
@@ -101,7 +97,7 @@ searchInput.addEventListener("input", e => {
   });
 });
 
-// Helper: exit game view
+// Exit game view
 function exitGameView() {
   gameFrame.src = "";
   gameView.style.display = "none";
@@ -110,11 +106,7 @@ function exitGameView() {
   gameList.style.display = "flex";
   searchInput.style.display = "block";
   fullScreenButton.textContent = "Full Screen";
-
-  // Reset iframe size to original
   gameFrame.style.width = "80%";
   gameFrame.style.height = "80%";
-
-  // Exit fullscreen if active
   if (document.fullscreenElement) document.exitFullscreen();
 }
