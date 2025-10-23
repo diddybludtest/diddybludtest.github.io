@@ -7,6 +7,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 header {
@@ -112,13 +113,12 @@ header p {
   justify-content: center;
   position: relative;
   transition: opacity 0.4s;
+  z-index: 15;
 }
 
 #gameFrame {
   border: none;
   border-radius: 10px;
-  width: 80%;
-  height: 80%;
   transition: width 0.4s, height 0.4s;
 }
 
@@ -154,12 +154,11 @@ button:hover {
   background: #333;
 }
 
-#updatesButton {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 15;
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
 }
 
 /* UPDATES OVERLAY */
@@ -193,5 +192,14 @@ button:hover {
 
 #updatesOverlay p {
   font-size: 1.2em;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+}
+
+/* FOOTER */
+footer {
+  margin-top: auto;
+  text-align: center;
+  padding: 15px;
+  font-size: 0.9em;
+  color: #aaa;
 }
