@@ -4,13 +4,11 @@ const games = [
     url: "games/tinyfishing/index.html", 
     image: "games/tinyfishing/tiny-fishing.png"
   },
-  
   { 
     name: "Slope", 
     url: "games/slope/index.html", 
     image: "games/slope/thumb.png"
   },
-  
   { 
     name: "Retro Bowl", 
     url: "games/retro-bowl/index.html", 
@@ -26,7 +24,7 @@ const backButton = document.getElementById("backButton");
 const fullScreenButton = document.getElementById("fullScreenButton");
 const overlay = document.getElementById("overlay");
 
-// Display all game cards initially
+// Display all game cards
 games.forEach(game => {
   const div = document.createElement("div");
   div.className = "game";
@@ -51,33 +49,40 @@ function loadGame(game) {
   overlay.style.pointerEvents = "auto";
   gameView.style.display = "flex";
   gameFrame.src = game.url;
+  fullScreenButton.textContent = "Full Screen";
 }
 
-// Back button: show the menu exactly as it was
+// Back button
 backButton.addEventListener("click", () => {
-  gameFrame.src = "";              // stop iframe
-  gameView.style.display = "none"; // hide game
-  overlay.style.opacity = "0";
-  overlay.style.pointerEvents = "none";
-  gameList.style.display = "flex"; // show the grid
-  searchInput.style.display = "block"; // show search
-  // Do NOT clear searchInput.value or re-render the grid
-  if (document.fullscreenElement) {
-    document.exitFullscreen();
-  }
+  exitGameView();
 });
 
 // Fullscreen button
 fullScreenButton.addEventListener("click", () => {
-  if (gameView.requestFullscreen) gameView.requestFullscreen();
-  else if (gameView.webkitRequestFullscreen) gameView.webkitRequestFullscreen();
-  else if (gameView.msRequestFullscreen) gameView.msRequestFullscreen();
-
-  gameFrame.style.width = "100%";
-  gameFrame.style.height = "100%";
+  if (!document.fullscreenElement) {
+    if (gameView.requestFullscreen) gameView.requestFullscreen();
+    else if (gameView.webkitRequestFullscreen) gameView.webkitRequestFullscreen();
+    else if (gameView.msRequestFullscreen) gameView.msRequestFullscreen();
+    fullScreenButton.textContent = "Exit Full Screen";
+    overlay.style.pointerEvents = "none";
+  } else {
+    if (document.exitFullscreen) document.exitFullscreen();
+    fullScreenButton.textContent = "Full Screen";
+    overlay.style.pointerEvents = "auto";
+  }
 });
 
-// Search filter: hide/show existing cards only
+// Detect fullscreen change (Esc key)
+document.addEventListener("fullscreenchange", () => {
+  if (!document.fullscreenElement) {
+    fullScreenButton.textContent = "Full Screen";
+    overlay.style.pointerEvents = "auto";
+  } else {
+    overlay.style.pointerEvents = "none";
+  }
+});
+
+// Search filter
 searchInput.addEventListener("input", e => {
   const value = e.target.value.toLowerCase();
   Array.from(gameList.children).forEach(card => {
@@ -85,3 +90,15 @@ searchInput.addEventListener("input", e => {
     card.style.display = name.includes(value) ? "flex" : "none";
   });
 });
+
+// Helper: exit game view
+function exitGameView() {
+  gameFrame.src = "";
+  gameView.style.display = "none";
+  overlay.style.opacity = "0";
+  overlay.style.pointerEvents = "none";
+  gameList.style.display = "flex";
+  searchInput.style.display = "block";
+  fullScreenButton.textContent = "Full Screen";
+  if (document.fullscreenElement) document.exitFullscreen();
+}
