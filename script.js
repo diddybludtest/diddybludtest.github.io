@@ -2,12 +2,12 @@ const games = [
   { 
     name: "Tiny Fishing", 
     url: "games/tinyfishing/index.html", 
-    image: "games/tinyfishing/tiny-fishing.png" // optional image
+    image: "games/tinyfishing/tiny-fishing.png"
   },
   { 
     name: "Slope", 
     url: "games/slope/index.html", 
-    image: "games/slope/thumb.png" // optional image
+    image: "games/slope/thumb.png"
   },
 ];
 
@@ -16,26 +16,29 @@ const searchInput = document.getElementById("search");
 const gameFrame = document.getElementById("gameFrame");
 const backButton = document.getElementById("backButton");
 
-// Display game buttons
 function displayGames(list) {
   gameList.innerHTML = "";
   list.forEach(game => {
     const div = document.createElement("div");
     div.className = "game";
 
-    // if image exists, show it — otherwise show name
-    if (game.image) {
+    // try to load the image, fallback to name if it fails
+    const img = new Image();
+    img.src = game.image;
+    img.className = "game-thumb";
+    img.alt = game.name;
+
+    img.onerror = () => {
+      div.innerHTML = `<div class="no-thumb"><h3>${game.name}</h3></div>`;
+    };
+    img.onload = () => {
       div.innerHTML = `
         <img src="${game.image}" alt="${game.name}" class="game-thumb">
         <h3>${game.name}</h3>
       `;
-    } else {
-      div.innerHTML = `
-        <div class="no-thumb"><h3>${game.name}</h3></div>
-      `;
-    }
+    };
 
-    // hover tween
+    // smooth hover tween
     div.addEventListener("mouseenter", () => {
       div.style.transform = "scale(1.05)";
       div.style.transition = "transform 0.2s";
@@ -44,16 +47,13 @@ function displayGames(list) {
       div.style.transform = "scale(1)";
     });
 
-    // click → load game
-    div.addEventListener("click", () => {
-      loadGame(game);
-    });
+    // load game on click
+    div.addEventListener("click", () => loadGame(game));
 
     gameList.appendChild(div);
   });
 }
 
-// Load the game inside iframe
 function loadGame(game) {
   gameList.style.display = "none";
   searchInput.style.display = "none";
@@ -62,7 +62,6 @@ function loadGame(game) {
   backButton.style.display = "block";
 }
 
-// Back to menu
 backButton.addEventListener("click", () => {
   gameFrame.src = "";
   gameFrame.style.display = "none";
@@ -71,12 +70,10 @@ backButton.addEventListener("click", () => {
   gameList.style.display = "grid";
 });
 
-// Search
 searchInput.addEventListener("input", e => {
   const value = e.target.value.toLowerCase();
   const filtered = games.filter(g => g.name.toLowerCase().includes(value));
   displayGames(filtered);
 });
 
-// Initial load
 displayGames(games);
