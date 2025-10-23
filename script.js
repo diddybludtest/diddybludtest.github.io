@@ -19,9 +19,10 @@ const backButton = document.getElementById("backButton");
 // Display game cards
 function displayGames(list) {
   gameList.innerHTML = "";
-  list.forEach(game => {
+  list.forEach((game, index) => {
     const div = document.createElement("div");
     div.className = "game";
+    div.style.animationDelay = `${index * 0.1}s`; // ✨ staggered fade-in delay
 
     div.innerHTML = `
       <div class="game-inner">
@@ -39,6 +40,7 @@ function displayGames(list) {
     gameList.appendChild(div);
   });
 }
+
 
 
 function loadGame(game) {
