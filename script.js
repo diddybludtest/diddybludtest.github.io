@@ -68,6 +68,9 @@ function loadGame(game) {
   overlay.style.pointerEvents = "auto";
   gameFrame.src = game.url;
   fadeIn(gameView, "flex");
+  // Reset iframe size
+  gameFrame.style.width = "900px";
+  gameFrame.style.height = "80vh";
 }
 
 // Back button
@@ -80,11 +83,13 @@ backButton.addEventListener("click", () => {
 
 // Full screen button
 fullScreenButton.addEventListener("click", () => {
-  if (!document.fullscreenElement) {
-    gameView.requestFullscreen().catch(err => alert(`Error: ${err.message}`));
-  } else {
-    document.exitFullscreen();
-  }
+  fadeOut(gameList, () => fadeOut(searchInput));
+  fadeIn(overlay, "block");
+  overlay.style.pointerEvents = "auto";
+  fadeIn(gameView, "flex");
+  // Expand iframe to near full screen
+  gameFrame.style.width = "95vw";
+  gameFrame.style.height = "90vh";
 });
 
 // Search
