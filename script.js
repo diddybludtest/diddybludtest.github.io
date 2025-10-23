@@ -3,12 +3,6 @@ const games = [
   { name: "Cookie Clicker", url: "https://orteil.dashnet.org/cookieclicker/" },
   { name: "Run 3", url: "https://sites.google.com/site/unblockedgames66ez/run-3" },
   { name: "Retro Bowl", url: "https://now.gg/play/new-star-games/2647/retro-bowl" },
-  { name: "Slope", url: "https://mathgames66.github.io/slope/" },
-  { name: "Drift Hunters", url: "https://drifthunters.io/" },
-  { name: "Minecraft Classic", url: "https://classic.minecraft.net/" },
-  { name: "Tetris", url: "https://tetris.com/play-tetris" },
-  { name: "Shell Shockers", url: "https://shellshock.io/" },
-  { name: "Subway Surfers", url: "https://now.gg/play/2753/subway-surfers" },
 ];
 
 const gameList = document.getElementById("gameList");
@@ -32,13 +26,13 @@ function loadGame(game) {
   searchInput.style.display = "none";
   gameFrame.src = game.url;
   gameFrame.style.display = "block";
-  backButton.style.display = "inline-block";
+  backButton.style.display = "block";
 }
 
 backButton.addEventListener("click", () => {
   gameFrame.style.display = "none";
   backButton.style.display = "none";
-  searchInput.style.display = "inline-block";
+  searchInput.style.display = "block";
   gameList.style.display = "grid";
   gameFrame.src = "";
 });
