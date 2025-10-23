@@ -5,7 +5,9 @@ body {
   color: #f8fafc;
   text-align: center;
   margin: 0;
-  transition: background 0.3s;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* ===== Header ===== */
@@ -18,21 +20,13 @@ header {
   z-index: 10;
 }
 
-h1 {
-  font-size: 2rem;
-  margin: 0;
-  color: #38bdf8;
-}
-
-header p {
-  color: #94a3b8;
-  font-size: 14px;
-  margin-top: 5px;
-}
+h1 { margin: 0; font-size: 2rem; color: #38bdf8; }
+header p { color: #94a3b8; font-size: 14px; margin-top: 5px; }
 
 /* ===== Search Bar ===== */
 #search {
   width: 60%;
+  max-width: 500px;
   padding: 10px;
   margin-top: 15px;
   border: none;
@@ -40,12 +34,6 @@ header p {
   font-size: 16px;
   background: #334155;
   color: white;
-  transition: 0.2s;
-}
-
-#search:focus {
-  outline: none;
-  background: #475569;
 }
 
 /* ===== Games Grid ===== */
@@ -54,6 +42,9 @@ header p {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 25px;
   padding: 40px;
+  justify-content: center; /* CENTER THE GRID */
+  max-width: 1200px;
+  margin: 0 auto; /* CENTER THE GRID CONTAINER */
 }
 
 .game {
@@ -79,6 +70,7 @@ header p {
 /* ===== Game Player (iframe) ===== */
 iframe {
   width: 90%;
+  max-width: 1000px;
   height: 600px;
   border: none;
   border-radius: 10px;
@@ -99,7 +91,6 @@ iframe {
   font-weight: 600;
   color: #0f172a;
   cursor: pointer;
-  transition: 0.2s;
 }
 
 #backButton:hover {
@@ -112,7 +103,7 @@ footer {
   padding: 15px;
   font-size: 14px;
   color: #94a3b8;
-  margin-top: 30px;
+  margin-top: auto;
 }
 
 footer a {
@@ -126,15 +117,7 @@ footer a:hover {
 
 /* ===== Responsive Design ===== */
 @media (max-width: 768px) {
-  iframe {
-    height: 400px;
-  }
-
-  #search {
-    width: 80%;
-  }
-
-  .games {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  }
+  iframe { height: 400px; }
+  #search { width: 80%; }
+  .games { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
 }
