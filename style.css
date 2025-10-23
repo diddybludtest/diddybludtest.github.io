@@ -11,7 +11,7 @@ body {
   align-items: center;
 }
 
-/* 🎮 Header */
+/* Header */
 header {
   margin-top: 25px;
 }
@@ -28,7 +28,7 @@ p {
   margin-bottom: 15px;
 }
 
-/* 🔍 Search Bar */
+/* Search Bar */
 #search {
   padding: 12px 20px;
   width: 300px;
@@ -40,7 +40,6 @@ p {
   font-size: 1rem;
   margin-bottom: 25px;
   transition: 0.25s ease;
-  animation: fadeIn 0.6s ease forwards;
 }
 
 #search:focus {
@@ -49,39 +48,33 @@ p {
   box-shadow: 0 0 12px #00e5ff80;
 }
 
-/* 🕹️ Game Buttons Row */
+/* Game buttons row */
 .games {
   display: flex;
-  flex-direction: row;       /* horizontal row */
-  flex-wrap: wrap;           /* wrap if needed */
-  justify-content: center;   /* center horizontally */
-  gap: 30px;                 /* spacing between cards */
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
   margin: 40px auto;
 }
 
-/* ✨ Fade-in Animation */
+/* Fade-in animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* 🧱 Game Card */
+/* Game Card */
 .game {
   perspective: 1000px;
   cursor: pointer;
   opacity: 0;
   animation: fadeIn 0.6s ease forwards;
-  transition: transform 0.2s;
   width: 200px;
   height: 250px;
-  margin: auto;
+  display: flex;
 }
 
-.game:hover {
-  transform: scale(1.05);
-}
-
-/* 🧩 Inner Flip */
 .game-inner {
   position: relative;
   width: 100%;
@@ -89,13 +82,15 @@ p {
   text-align: center;
   transition: transform 0.6s;
   transform-style: preserve-3d;
+  display: flex;
+  flex-direction: column;
 }
 
 .game:hover .game-inner {
   transform: rotateY(180deg);
 }
 
-/* 🎴 Front & Back */
+/* Front & Back */
 .game-front,
 .game-back {
   position: absolute;
@@ -120,9 +115,6 @@ p {
   margin: 10px 0;
   font-size: 1.1rem;
   color: #00e5ff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .game-back {
@@ -133,10 +125,9 @@ p {
   justify-content: center;
   align-items: center;
   font-size: 1.1rem;
-  border-radius: 15px;
 }
 
-/* 🎮 Iframe */
+/* Game view & iframe */
 #gameView {
   display: none;
   flex-direction: column;
@@ -153,18 +144,19 @@ p {
   height: 80vh;
   border: none;
   border-radius: 12px;
+  transition: all 0.3s ease;
 }
 
-/* 🎛️ Buttons Row */
+/* Buttons row */
 .game-buttons {
   margin-top: 15px;
   display: flex;
   gap: 15px;       
   justify-content: center;
-  flex-wrap: wrap; /* wrap if screen is small */
+  flex-wrap: wrap;
 }
 
-/* Back & Full Screen Buttons */
+/* Back & Full Screen buttons */
 #backButton, #fullScreenButton {
   padding: 12px 30px;
   font-size: 1rem;
@@ -185,7 +177,7 @@ p {
   box-shadow: 0 0 12px #00e5ff80;
 }
 
-/* ⚡ Overlay dim */
+/* Overlay dim */
 #overlay {
   position: fixed;
   top: 0;
@@ -199,12 +191,11 @@ p {
   z-index: 5;
 }
 
-/* ⚙️ Footer */
+/* Footer */
 footer {
   margin-top: 50px;
   color: #777;
   font-size: 0.9rem;
-  animation: fadeIn 0.6s ease forwards;
 }
 
 footer a {
