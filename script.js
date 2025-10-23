@@ -1,5 +1,6 @@
 const games = [
-  { name: "Tiny Fishing", url: "games/tinyfishing/index.html" }
+  { name: "Tiny Fishing", url: "games/tinyfishing/index.html" },
+  { name: "Baldis Basics", url: "games/baldisbasics/index.html" },
 ];
 
 const gameList = document.getElementById("gameList");
