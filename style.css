@@ -143,23 +143,32 @@ p {
 }
 
 /* 🎮 Iframe */
-iframe {
+#gameView {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 80vh;
+  margin-top: 20px;
+}
+
+#gameFrame {
   width: 900px;
-  max-width: 90%;
+  max-width: 95%;
   height: 80vh;
   border: none;
   border-radius: 12px;
-  margin: 30px auto 10px auto;
-  display: none;
-  animation: fadeIn 0.6s ease forwards;
-  z-index: 10;
-  position: relative;
 }
 
-/* 🔙 Back Button */
-#backButton {
-  display: none;
-  margin: 15px auto 40px auto;
+/* 🎛️ Buttons */
+.game-buttons {
+  margin-top: 15px;
+  display: flex;
+  gap: 15px;
+}
+
+#backButton, #fullScreenButton {
   padding: 12px 30px;
   font-size: 1rem;
   border: 2px solid #00bcd4;
@@ -168,14 +177,9 @@ iframe {
   color: #00e5ff;
   cursor: pointer;
   transition: all 0.25s ease;
-  width: 200px;
-  text-align: center;
-  animation: fadeIn 0.6s ease forwards;
-  z-index: 11;
-  position: relative;
 }
 
-#backButton:hover {
+#backButton:hover, #fullScreenButton:hover {
   background: #00bcd4;
   color: #fff;
   transform: scale(1.05);
