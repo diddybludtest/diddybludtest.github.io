@@ -34,17 +34,16 @@ header p {
   border: none;
   display: block;
   margin: 0 auto;
+  transition: opacity 0.4s ease;
 }
 
 /* GAME GRID */
-#gameList {
+.games {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
-  padding: 20px;
-  opacity: 1;
-  transition: opacity 0.5s;
+  gap: 30px;
+  margin: 40px auto;
 }
 
 /* GAME CARD */
@@ -53,6 +52,8 @@ header p {
   height: 250px;
   perspective: 1000px;
   cursor: pointer;
+  opacity: 0;
+  animation: fadeIn 0.6s ease forwards;
 }
 
 .game-inner {
@@ -110,32 +111,22 @@ header p {
 
 /* GAME VIEW */
 #gameView {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
-  width: 100vw;
-  height: 100vh;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s;
-}
-
-#gameView.show {
-  opacity: 1;
-  pointer-events: auto;
+  transition: opacity 0.4s;
+  z-index: 10;
 }
 
 #gameFrame {
   border: none;
-  border-radius: 8px;
-  width: 90vw;
-  height: 80vh;
-  max-width: none;
-  max-height: none;
+  border-radius: 10px;
+  width: 80%;
+  height: 80%;
   transition: width 0.4s, height 0.4s;
-  z-index: 3;
+  z-index: 20;
 }
 
 /* OVERLAY DIM */
@@ -145,49 +136,44 @@ header p {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
-  pointer-events: none;
+  background: rgba(0,0,0,0.6);
   opacity: 0;
-  transition: opacity 0.5s;
-  z-index: 1;
-}
-
-#overlay.show {
-  opacity: 1;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 15;
 }
 
 /* BUTTONS */
+button {
+  padding: 12px 30px;
+  font-size: 1rem;
+  border: 2px solid #00bcd4;
+  border-radius: 12px;
+  background-color: #1a1a1a;
+  color: #00e5ff;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin: 10px;
+}
+
+button:hover {
+  background: #00bcd4;
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #00e5ff80;
+}
+
 .buttons {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
-  z-index: 4;
-  position: relative;
-}
-
-#backButton, #fullScreenButton, #updatesButton {
-  padding: 10px 20px;
-  font-size: 1em;
-  border: none;
-  border-radius: 10px;
-  background: #1f1f1f;
-  color: #fff;
-  cursor: pointer;
-  transition: transform 0.2s, background 0.3s;
-}
-
-#backButton:hover, #fullScreenButton:hover, #updatesButton:hover {
-  transform: scale(1.05);
-  background: #333;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 15px;
 }
 
 /* UPDATES OVERLAY */
 #updatesOverlay {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -195,17 +181,18 @@ header p {
   height: 100%;
   background: #121212;
   color: #fff;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   padding: 20px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s;
-  z-index: 20;
+  z-index: 25;
+  transition: opacity 0.4s;
 }
 
 #updatesOverlay.show {
+  display: flex;
   opacity: 1;
-  pointer-events: auto;
 }
 
 #updatesOverlay h1 {
@@ -218,27 +205,27 @@ header p {
   margin-bottom: 10px;
 }
 
-#closeUpdates {
-  padding: 10px 20px;
-  font-size: 1em;
-  border: none;
-  border-radius: 10px;
-  background: #1f1f1f;
-  color: #fff;
-  cursor: pointer;
-  transition: transform 0.2s, background 0.3s;
-}
-
-#closeUpdates:hover {
-  transform: scale(1.05);
-  background: #333;
-}
-
 /* FOOTER */
 footer {
   margin-top: auto;
+  color: #777;
+  font-size: 0.9rem;
   text-align: center;
-  padding: 15px;
-  font-size: 0.9em;
-  color: #aaa;
+}
+
+footer a {
+  color: #00bcd4;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+footer a:hover {
+  color: #00e5ff;
+  text-decoration: underline;
+}
+
+/* FADE IN ANIMATION */
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
