@@ -32,31 +32,39 @@ games.forEach(game => {
   gameList.appendChild(div);
 });
 
-// Load game
+// Load game with fade
 function loadGame(game) {
-  gameList.style.display = "none";
-  searchInput.style.display = "none";
-  overlay.style.opacity = "1";
-  overlay.style.pointerEvents = "none";
-  gameView.style.display = "flex";
-  gameFrame.src = game.url;
-  gameFrame.style.width = "90vw";
-  gameFrame.style.height = "80vh";
-  fullScreenButton.textContent = "Full Screen";
+  gameList.style.opacity = 0;
+  searchInput.style.opacity = 0;
+
+  setTimeout(() => {
+    gameList.style.display = "none";
+    searchInput.style.display = "none";
+    overlay.classList.add("show");
+    gameView.classList.add("show");
+    gameFrame.src = game.url;
+    gameFrame.style.width = "90vw";
+    gameFrame.style.height = "80vh";
+    fullScreenButton.textContent = "Full Screen";
+    gameList.style.opacity = 1;
+    searchInput.style.opacity = 1;
+  }, 300);
 }
 
 // Exit game view
 function exitGameView() {
-  gameFrame.src = "";
-  gameView.style.display = "none";
-  overlay.style.opacity = "0";
-  overlay.style.pointerEvents = "none";
-  gameList.style.display = "flex";
-  searchInput.style.display = "block";
-  fullScreenButton.textContent = "Full Screen";
-  gameFrame.style.width = "90vw";
-  gameFrame.style.height = "80vh";
-  if (document.fullscreenElement) document.exitFullscreen();
+  gameView.classList.remove("show");
+  overlay.classList.remove("show");
+
+  setTimeout(() => {
+    gameFrame.src = "";
+    gameList.style.display = "flex";
+    searchInput.style.display = "block";
+    fullScreenButton.textContent = "Full Screen";
+    gameFrame.style.width = "90vw";
+    gameFrame.style.height = "80vh";
+    if (document.fullscreenElement) document.exitFullscreen();
+  }, 400);
 }
 
 backButton.addEventListener("click", exitGameView);
