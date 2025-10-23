@@ -1,21 +1,34 @@
 const games = [
-  { name: "Tiny Fishing", url: "games/tinyfishing/index.html", image: "games/tinyfishing/tiny-fishing.png" },
-  { name: "Slope", url: "games/slope/index.html", image: "games/slope/thumb.png" },
-  { name: "Retro Bowl", url: "games/retro-bowl/index.html", image: "games/retro-bowl/thumby.jpg" },
+  { 
+    name: "Tiny Fishing", 
+    url: "games/tinyfishing/index.html", 
+    image: "games/tinyfishing/tiny-fishing.png"
+  },
+  { 
+    name: "Slope", 
+    url: "games/slope/index.html", 
+    image: "games/slope/thumb.png"
+  },
+  { 
+    name: "Retro Bowl", 
+    url: "games/retro-bowl/index.html", 
+    image: "games/retro-bowl/thumby.jpg"
+  },
 ];
 
 const gameList = document.getElementById("gameList");
 const searchInput = document.getElementById("search");
 const gameView = document.getElementById("gameView");
 const gameFrame = document.getElementById("gameFrame");
-const overlay = document.getElementById("overlay");
 const backButton = document.getElementById("backButton");
 const fullScreenButton = document.getElementById("fullScreenButton");
+const overlay = document.getElementById("overlay");
+
 const updatesButton = document.getElementById("updatesButton");
 const updatesOverlay = document.getElementById("updatesOverlay");
 const closeUpdates = document.getElementById("closeUpdates");
 
-// DISPLAY GAME CARDS
+// Display game cards
 games.forEach(game => {
   const div = document.createElement("div");
   div.className = "game";
@@ -32,10 +45,9 @@ games.forEach(game => {
   gameList.appendChild(div);
 });
 
-// LOAD GAME
+// Load game
 function loadGame(game) {
-  gameList.style.opacity = "0";
-  setTimeout(() => gameList.style.display = "none", 400);
+  gameList.style.display = "none";
   searchInput.style.display = "none";
   overlay.style.opacity = "1";
   overlay.style.pointerEvents = "auto";
@@ -46,46 +58,47 @@ function loadGame(game) {
   fullScreenButton.textContent = "Full Screen";
 }
 
-// EXIT GAME VIEW
+// Exit game view
 function exitGameView() {
   gameFrame.src = "";
   gameView.style.display = "none";
   overlay.style.opacity = "0";
   overlay.style.pointerEvents = "none";
   gameList.style.display = "flex";
-  setTimeout(() => gameList.style.opacity = "1", 10);
   searchInput.style.display = "block";
+  fullScreenButton.textContent = "Full Screen";
   gameFrame.style.width = "80%";
   gameFrame.style.height = "80%";
-  fullScreenButton.textContent = "Full Screen";
   if (document.fullscreenElement) document.exitFullscreen();
 }
 
+// Back button
 backButton.addEventListener("click", exitGameView);
 
-// FULLSCREEN TOGGLE
+// Fullscreen toggle
 fullScreenButton.addEventListener("click", () => {
   if (!document.fullscreenElement) {
-    gameView.requestFullscreen();
-    fullScreenButton.textContent = "Exit Full Screen";
+    if (gameView.requestFullscreen) gameView.requestFullscreen();
     overlay.style.pointerEvents = "none";
     gameFrame.style.width = "100%";
     gameFrame.style.height = "100%";
+    fullScreenButton.textContent = "Exit Full Screen";
   } else {
-    document.exitFullscreen();
-    fullScreenButton.textContent = "Full Screen";
+    if (document.exitFullscreen) document.exitFullscreen();
     overlay.style.pointerEvents = "auto";
     gameFrame.style.width = "80%";
     gameFrame.style.height = "80%";
+    fullScreenButton.textContent = "Full Screen";
   }
 });
 
+// Fullscreen exit detection
 document.addEventListener("fullscreenchange", () => {
   if (!document.fullscreenElement) {
-    fullScreenButton.textContent = "Full Screen";
     overlay.style.pointerEvents = "auto";
     gameFrame.style.width = "80%";
     gameFrame.style.height = "80%";
+    fullScreenButton.textContent = "Full Screen";
   } else {
     overlay.style.pointerEvents = "none";
     gameFrame.style.width = "100%";
@@ -93,7 +106,7 @@ document.addEventListener("fullscreenchange", () => {
   }
 });
 
-// SEARCH FILTER
+// Search
 searchInput.addEventListener("input", e => {
   const value = e.target.value.toLowerCase();
   Array.from(gameList.children).forEach(card => {
@@ -102,7 +115,7 @@ searchInput.addEventListener("input", e => {
   });
 });
 
-// UPDATES BUTTON
+// Updates overlay
 updatesButton.addEventListener("click", () => {
   updatesOverlay.classList.add("show");
 });
