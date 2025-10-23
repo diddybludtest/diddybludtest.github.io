@@ -20,41 +20,26 @@ const backButton = document.getElementById("backButton");
 function displayGames(list) {
   gameList.innerHTML = "";
   list.forEach(game => {
-    const card = document.createElement("div");
-    card.className = "game-card";
+    const div = document.createElement("div");
+    div.className = "game";
 
-    // Front (image or name)
-    const front = document.createElement("div");
-    front.className = "card-front";
+    div.innerHTML = `
+      <div class="game-inner">
+        <div class="game-front">
+          ${game.image ? `<img src="${game.image}" alt="${game.name}">` : ""}
+          <h3>${game.name}</h3>
+        </div>
+        <div class="game-back">
+          <p>Play ${game.name}</p>
+        </div>
+      </div>
+    `;
 
-    if (game.image) {
-      front.innerHTML = `<img src="${game.image}" alt="${game.name}" class="game-thumb">`;
-    } else {
-      front.innerHTML = `<div class="no-thumb"><h3>${game.name}</h3></div>`;
-    }
-
-    // Back (game name)
-    const back = document.createElement("div");
-    back.className = "card-back";
-    back.innerHTML = `<h3>${game.name}</h3><p>Click to Play</p>`;
-
-    // Card structure
-    const inner = document.createElement("div");
-    inner.className = "card-inner";
-    inner.appendChild(front);
-    inner.appendChild(back);
-    card.appendChild(inner);
-
-    // Flip animation
-    card.addEventListener("mouseenter", () => inner.classList.add("flipped"));
-    card.addEventListener("mouseleave", () => inner.classList.remove("flipped"));
-
-    // Load game on click
-    card.addEventListener("click", () => loadGame(game));
-
-    gameList.appendChild(card);
+    div.addEventListener("click", () => loadGame(game));
+    gameList.appendChild(div);
   });
 }
+
 
 function loadGame(game) {
   gameList.style.display = "none";
