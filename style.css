@@ -149,3 +149,84 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+
+/* Updates button at bottom */
+#updatesButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background: #555;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  z-index: 1002;
+}
+
+#updatesButton:hover {
+  background: #777;
+  transform: scale(1.05);
+}
+
+/* Updates overlay */
+#updatesOverlay {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#updatesOverlay.show {
+  display: flex;
+  opacity: 1;
+}
+
+#updatesOverlay img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+#updatesContent h1 {
+  margin: 10px 0;
+  font-size: 2rem;
+}
+
+#updatesText {
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+#closeUpdates {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background: #555;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+#closeUpdates:hover {
+  background: #777;
+  transform: scale(1.05);
+}
