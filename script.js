@@ -13,19 +13,18 @@ const games = [
 
 const gameList = document.getElementById("gameList");
 const searchInput = document.getElementById("search");
+const gameView = document.getElementById("gameView");
 const gameFrame = document.getElementById("gameFrame");
 const backButton = document.getElementById("backButton");
-const overlay = document.getElementById("overlay");
 const fullScreenButton = document.getElementById("fullScreenButton");
-const gameView = document.getElementById("gameView");
+const overlay = document.getElementById("overlay");
 
-// Display game cards
+// Display games as cards
 function displayGames(list) {
   gameList.innerHTML = "";
-  list.forEach((game, index) => {
+  list.forEach(game => {
     const div = document.createElement("div");
     div.className = "game";
-    div.style.animationDelay = `${index * 0.1}s`; // stagger fade
 
     div.innerHTML = `
       <div class="game-inner">
@@ -38,61 +37,50 @@ function displayGames(list) {
         </div>
       </div>
     `;
+
     div.addEventListener("click", () => loadGame(game));
     gameList.appendChild(div);
   });
 }
 
-// Fade helpers
-function fadeOut(element, callback) {
-  element.style.opacity = 1;
-  element.style.transition = "opacity 0.4s ease";
-  element.style.opacity = 0;
-  setTimeout(() => {
-    element.style.display = "none";
-    if (callback) callback();
-  }, 400);
-}
-
-function fadeIn(element, display = "block") {
-  element.style.display = display;
-  element.style.opacity = 0;
-  element.style.transition = "opacity 0.4s ease";
-  setTimeout(() => element.style.opacity = 1, 10);
-}
-
 // Load game
 function loadGame(game) {
-  fadeOut(gameList, () => fadeOut(searchInput));
-  fadeIn(overlay, "block");
+  gameList.style.display = "none";
+  searchInput.style.display = "none";
+  overlay.style.opacity = "1";
   overlay.style.pointerEvents = "auto";
+  gameView.style.display = "flex";
   gameFrame.src = game.url;
-  fadeIn(gameView, "flex");
-  // Reset iframe size
-  gameFrame.style.width = "900px";
-  gameFrame.style.height = "80vh";
 }
 
 // Back button
 backButton.addEventListener("click", () => {
-  fadeOut(gameView, () => gameFrame.src = "");
-  fadeOut(overlay, () => overlay.style.pointerEvents = "none");
-  fadeIn(searchInput, "block");
-  fadeIn(gameList, "grid");
+  gameFrame.src = "";
+  gameView.style.display = "none";
+  overlay.style.opacity = "0";
+  overlay.style.pointerEvents = "none";
+  gameList.style.display = "flex";
+  searchInput.style.display = "block";
+
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+  }
 });
 
-// Full screen button
+// Fullscreen button
 fullScreenButton.addEventListener("click", () => {
-  fadeOut(gameList, () => fadeOut(searchInput));
-  fadeIn(overlay, "block");
-  overlay.style.pointerEvents = "auto";
-  fadeIn(gameView, "flex");
-  // Expand iframe to near full screen
-  gameFrame.style.width = "95vw";
-  gameFrame.style.height = "90vh";
+  if (gameView.requestFullscreen) {
+    gameView.requestFullscreen();
+  } else if (gameView.webkitRequestFullscreen) {
+    gameView.webkitRequestFullscreen();
+  } else if (gameView.msRequestFullscreen) {
+    gameView.msRequestFullscreen();
+  }
+  gameFrame.style.width = "100%";
+  gameFrame.style.height = "100%";
 });
 
-// Search
+// Search filter
 searchInput.addEventListener("input", e => {
   const value = e.target.value.toLowerCase();
   const filtered = games.filter(g => g.name.toLowerCase().includes(value));
