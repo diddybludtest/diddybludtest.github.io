@@ -39,14 +39,14 @@ header p {
   transition: opacity 0.4s ease;
 }
 
-/* GAME GRID */
+/* GAME GRID (HORIZONTAL ROW) */
 .games {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 30px;
-  width: fit-content;
-  margin: 40px auto;
   justify-content: center;
+  margin: 40px auto;
+  transition: opacity 0.4s ease;
 }
 
 /* GAME CARD */
@@ -119,7 +119,7 @@ header p {
   align-items: center;
   justify-content: center;
   position: relative;
-  transition: opacity 0.4s;
+  transition: opacity 0.4s ease;
   z-index: 10;
 }
 
@@ -128,7 +128,7 @@ header p {
   border-radius: 10px;
   width: 80%;
   height: 80%;
-  transition: width 0.4s, height 0.4s;
+  transition: width 0.4s, height 0.4s, opacity 0.4s ease;
   z-index: 20;
 }
 
@@ -178,16 +178,8 @@ button:hover {
   color: #00e5ff;
   cursor: pointer;
   transition: all 0.25s ease;
-  animation: fadeIn 0.6s ease forwards;
   z-index: 21;
   position: relative;
-}
-
-#backButton:hover {
-  background: #00bcd4;
-  color: #fff;
-  transform: scale(1.05);
-  box-shadow: 0 0 12px #00e5ff80;
 }
 
 /* UPDATES OVERLAY */
@@ -206,7 +198,7 @@ button:hover {
   text-align: center;
   padding: 20px;
   z-index: 25;
-  transition: opacity 0.4s;
+  transition: opacity 0.4s ease;
 }
 
 #updatesOverlay.show {
