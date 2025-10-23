@@ -1,34 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>diddyblud games</title>
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1006/1006771.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <header>
     <h1>diddyblud games</h1>
     <p>on diddy</p>
     <input type="text" id="search" placeholder="Search for a game...">
   </header>
 
-  <!-- Game cards container -->
   <div id="gameList" class="games"></div>
 
-  <!-- Game view with iframe -->
+  <!-- Game overlay and view -->
+  <div id="overlay"></div>
   <div id="gameView">
     <iframe id="gameFrame"></iframe>
-    <div class="game-buttons">
-      <button id="backButton">Back to Menu</button>
-      <button id="fullScreenButton">Full Screen</button>
-    </div>
+    <button id="backButton">Back to Menu</button>
+    <button id="fullScreenButton">Full Screen</button>
   </div>
-
-  <!-- Dim overlay -->
-  <div id="overlay"></div>
 
   <footer>
     <p>idk <a href="https://github.com/diddybludtest" target="_blank">jst a project</a> | hosted on GitHub Pages</p>
