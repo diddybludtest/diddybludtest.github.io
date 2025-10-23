@@ -70,7 +70,7 @@ function loadGame(game) {
   overlay.style.opacity = "1";
   overlay.style.pointerEvents = "auto";
   gameFrame.src = game.url;
-  gameFrame.style.width = "80%";  
+  gameFrame.style.width = "80%";
   gameFrame.style.height = "80%";
   fullScreenButton.textContent = "Full Screen";
   fadeIn(gameView);
@@ -111,7 +111,7 @@ fullScreenButton.addEventListener("click", () => {
   }
 });
 
-// Fullscreen exit detection
+// Fullscreen change
 document.addEventListener("fullscreenchange", () => {
   if (!document.fullscreenElement) {
     fullScreenButton.textContent = "Full Screen";
@@ -136,10 +136,15 @@ searchInput.addEventListener("input", e => {
 
 // Updates button
 updatesButton.addEventListener("click", () => {
+  fadeOut(gameList);
+  fadeOut(searchInput);
   fadeIn(updatesOverlay);
 });
 
-// Close updates overlay
+// Close updates
 closeUpdates.addEventListener("click", () => {
-  fadeOut(updatesOverlay);
+  fadeOut(updatesOverlay, () => {
+    fadeIn(gameList);
+    fadeIn(searchInput);
+  });
 });
