@@ -1,9 +1,7 @@
 const games = [
-  { name: "1v1.lol", url: "https://1v1.lol" },
-  { name: "Cookie Clicker", url: "https://orteil.dashnet.org/cookieclicker/" },
-  { name: "Run 3", url: "https://sites.google.com/site/unblockedgames66ez/run-3" },
-  { name: "Retro Bowl", url: "https://now.gg/play/new-star-games/2647/retro-bowl" },
+  { name: "Tiny Fishing", url: "games/html5game/index.html" },
 ];
+
 
 const gameList = document.getElementById("gameList");
 const searchInput = document.getElementById("search");
