@@ -23,7 +23,6 @@ const gameFrame = document.getElementById("gameFrame");
 const backButton = document.getElementById("backButton");
 const fullScreenButton = document.getElementById("fullScreenButton");
 const overlay = document.getElementById("overlay");
-
 const updatesButton = document.getElementById("updatesButton");
 const updatesOverlay = document.getElementById("updatesOverlay");
 const closeUpdates = document.getElementById("closeUpdates");
@@ -45,31 +44,51 @@ games.forEach(game => {
   gameList.appendChild(div);
 });
 
+// Fade helper
+function fadeIn(el) {
+  el.style.display = "flex";
+  el.style.opacity = 0;
+  requestAnimationFrame(() => {
+    el.style.transition = "opacity 0.4s";
+    el.style.opacity = 1;
+  });
+}
+
+function fadeOut(el, callback) {
+  el.style.opacity = 0;
+  el.addEventListener("transitionend", function handler() {
+    el.style.display = "none";
+    el.removeEventListener("transitionend", handler);
+    if (callback) callback();
+  });
+}
+
 // Load game
 function loadGame(game) {
-  gameList.style.display = "none";
-  searchInput.style.display = "none";
+  fadeOut(gameList);
+  fadeOut(searchInput);
   overlay.style.opacity = "1";
   overlay.style.pointerEvents = "auto";
-  gameView.style.display = "flex";
   gameFrame.src = game.url;
   gameFrame.style.width = "80%";  
   gameFrame.style.height = "80%";
   fullScreenButton.textContent = "Full Screen";
+  fadeIn(gameView);
 }
 
 // Exit game view
 function exitGameView() {
   gameFrame.src = "";
-  gameView.style.display = "none";
-  overlay.style.opacity = "0";
-  overlay.style.pointerEvents = "none";
-  gameList.style.display = "flex";
-  searchInput.style.display = "block";
-  fullScreenButton.textContent = "Full Screen";
-  gameFrame.style.width = "80%";
-  gameFrame.style.height = "80%";
-  if (document.fullscreenElement) document.exitFullscreen();
+  fadeOut(gameView, () => {
+    overlay.style.opacity = "0";
+    overlay.style.pointerEvents = "none";
+    fadeIn(gameList);
+    fadeIn(searchInput);
+    gameFrame.style.width = "80%";
+    gameFrame.style.height = "80%";
+    fullScreenButton.textContent = "Full Screen";
+    if (document.fullscreenElement) document.exitFullscreen();
+  });
 }
 
 // Back button
@@ -117,10 +136,10 @@ searchInput.addEventListener("input", e => {
 
 // Updates button
 updatesButton.addEventListener("click", () => {
-  updatesOverlay.classList.add("show");
+  fadeIn(updatesOverlay);
 });
 
 // Close updates overlay
 closeUpdates.addEventListener("click", () => {
-  updatesOverlay.classList.remove("show");
+  fadeOut(updatesOverlay);
 });
