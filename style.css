@@ -1,17 +1,18 @@
 /* GENERAL STYLING */
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Poppins', sans-serif; /* kept your Poppins font */
   background: #121212;
   color: #fff;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   overflow-x: hidden;
+  text-align: center;
 }
 
+/* HEADER */
 header {
-  text-align: center;
   padding: 20px;
 }
 
@@ -26,6 +27,7 @@ header p {
   color: #aaa;
 }
 
+/* SEARCH INPUT */
 #search {
   padding: 10px;
   width: 250px;
@@ -39,11 +41,12 @@ header p {
 
 /* GAME GRID */
 .games {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid; /* use grid for better alignment */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 30px;
+  width: fit-content;
   margin: 40px auto;
+  justify-content: center;
 }
 
 /* GAME CARD */
@@ -163,12 +166,28 @@ button:hover {
   box-shadow: 0 0 12px #00e5ff80;
 }
 
-.buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-top: 15px;
+/* BACK BUTTON */
+#backButton {
+  display: none;
+  margin: 15px auto 40px auto;
+  padding: 12px 30px;
+  font-size: 1rem;
+  border: 2px solid #00bcd4;
+  border-radius: 12px;
+  background-color: #1a1a1a;
+  color: #00e5ff;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  animation: fadeIn 0.6s ease forwards;
+  z-index: 11;
+  position: relative;
+}
+
+#backButton:hover {
+  background: #00bcd4;
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #00e5ff80;
 }
 
 /* UPDATES OVERLAY */
