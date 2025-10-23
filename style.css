@@ -1,7 +1,7 @@
 /* GENERAL STYLING */
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif; /* kept your Poppins font */
+  font-family: 'Poppins', sans-serif;
   background: #121212;
   color: #fff;
   display: flex;
@@ -41,7 +41,7 @@ header p {
 
 /* GAME GRID */
 .games {
-  display: grid; /* use grid for better alignment */
+  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 30px;
   width: fit-content;
@@ -179,7 +179,7 @@ button:hover {
   cursor: pointer;
   transition: all 0.25s ease;
   animation: fadeIn 0.6s ease forwards;
-  z-index: 11;
+  z-index: 21;
   position: relative;
 }
 
