@@ -1,19 +1,7 @@
 const games = [
-  { 
-    name: "Tiny Fishing", 
-    url: "games/tinyfishing/index.html", 
-    image: "games/tinyfishing/tiny-fishing.png"
-  },
-  { 
-    name: "Slope", 
-    url: "games/slope/index.html", 
-    image: "games/slope/thumb.png"
-  },
-  { 
-    name: "Retro Bowl", 
-    url: "games/retro-bowl/index.html", 
-    image: "games/retro-bowl/thumby.jpg"
-  },
+  { name: "Tiny Fishing", url: "games/tinyfishing/index.html", image: "games/tinyfishing/tiny-fishing.png" },
+  { name: "Slope", url: "games/slope/index.html", image: "games/slope/thumb.png" },
+  { name: "Retro Bowl", url: "games/retro-bowl/index.html", image: "games/retro-bowl/thumby.jpg" },
 ];
 
 const gameList = document.getElementById("gameList");
@@ -23,7 +11,6 @@ const gameFrame = document.getElementById("gameFrame");
 const backButton = document.getElementById("backButton");
 const fullScreenButton = document.getElementById("fullScreenButton");
 const overlay = document.getElementById("overlay");
-
 const updatesButton = document.getElementById("updatesButton");
 const updatesOverlay = document.getElementById("updatesOverlay");
 const closeUpdates = document.getElementById("closeUpdates");
@@ -50,11 +37,11 @@ function loadGame(game) {
   gameList.style.display = "none";
   searchInput.style.display = "none";
   overlay.style.opacity = "1";
-  overlay.style.pointerEvents = "auto";
+  overlay.style.pointerEvents = "none";
   gameView.style.display = "flex";
   gameFrame.src = game.url;
-  gameFrame.style.width = "80%";
-  gameFrame.style.height = "80%";
+  gameFrame.style.width = "90vw";
+  gameFrame.style.height = "80vh";
   fullScreenButton.textContent = "Full Screen";
 }
 
@@ -67,27 +54,26 @@ function exitGameView() {
   gameList.style.display = "flex";
   searchInput.style.display = "block";
   fullScreenButton.textContent = "Full Screen";
-  gameFrame.style.width = "80%";
-  gameFrame.style.height = "80%";
+  gameFrame.style.width = "90vw";
+  gameFrame.style.height = "80vh";
   if (document.fullscreenElement) document.exitFullscreen();
 }
 
-// Back button
 backButton.addEventListener("click", exitGameView);
 
-// Fullscreen toggle
+// Fullscreen button
 fullScreenButton.addEventListener("click", () => {
   if (!document.fullscreenElement) {
-    if (gameView.requestFullscreen) gameView.requestFullscreen();
+    gameView.requestFullscreen?.();
     overlay.style.pointerEvents = "none";
-    gameFrame.style.width = "100%";
-    gameFrame.style.height = "100%";
+    gameFrame.style.width = "100vw";
+    gameFrame.style.height = "100vh";
     fullScreenButton.textContent = "Exit Full Screen";
   } else {
-    if (document.exitFullscreen) document.exitFullscreen();
+    document.exitFullscreen?.();
     overlay.style.pointerEvents = "auto";
-    gameFrame.style.width = "80%";
-    gameFrame.style.height = "80%";
+    gameFrame.style.width = "90vw";
+    gameFrame.style.height = "80vh";
     fullScreenButton.textContent = "Full Screen";
   }
 });
@@ -96,17 +82,17 @@ fullScreenButton.addEventListener("click", () => {
 document.addEventListener("fullscreenchange", () => {
   if (!document.fullscreenElement) {
     overlay.style.pointerEvents = "auto";
-    gameFrame.style.width = "80%";
-    gameFrame.style.height = "80%";
+    gameFrame.style.width = "90vw";
+    gameFrame.style.height = "80vh";
     fullScreenButton.textContent = "Full Screen";
   } else {
     overlay.style.pointerEvents = "none";
-    gameFrame.style.width = "100%";
-    gameFrame.style.height = "100%";
+    gameFrame.style.width = "100vw";
+    gameFrame.style.height = "100vh";
   }
 });
 
-// Search
+// Search filter
 searchInput.addEventListener("input", e => {
   const value = e.target.value.toLowerCase();
   Array.from(gameList.children).forEach(card => {
@@ -115,11 +101,12 @@ searchInput.addEventListener("input", e => {
   });
 });
 
-// Updates overlay
+// Updates button
 updatesButton.addEventListener("click", () => {
   updatesOverlay.classList.add("show");
 });
 
+// Close updates overlay
 closeUpdates.addEventListener("click", () => {
   updatesOverlay.classList.remove("show");
 });
