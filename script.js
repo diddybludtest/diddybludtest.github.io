@@ -47,7 +47,6 @@ function loadGame(game) {
     gameFrame.style.opacity = 0;
     backButton.style.display = "inline-block";
     fullScreenButton.style.display = "inline-block";
-    fullScreenButton.textContent = "Full Screen";
 
     setTimeout(() => gameFrame.style.opacity = 1, 50);
   }, 400);
@@ -67,8 +66,8 @@ function exitGameView() {
     searchInput.style.opacity = 1;
     backButton.style.display = "none";
     fullScreenButton.textContent = "Full Screen";
-    gameFrame.style.width = "80%";
-    gameFrame.style.height = "80%";
+    gameFrame.style.width = "90vw";
+    gameFrame.style.height = "80vh";
     if (document.fullscreenElement) document.exitFullscreen();
   }, 300);
 }
@@ -78,14 +77,14 @@ fullScreenButton.addEventListener("click", () => {
   if (!document.fullscreenElement) {
     if (gameView.requestFullscreen) gameView.requestFullscreen();
     overlay.style.pointerEvents = "none";
-    gameFrame.style.width = "100%";
-    gameFrame.style.height = "100%";
+    gameFrame.style.width = "100vw";
+    gameFrame.style.height = "100vh";
     fullScreenButton.textContent = "Exit Full Screen";
   } else {
     document.exitFullscreen();
     overlay.style.pointerEvents = "auto";
-    gameFrame.style.width = "80%";
-    gameFrame.style.height = "80%";
+    gameFrame.style.width = "90vw";
+    gameFrame.style.height = "80vh";
     fullScreenButton.textContent = "Full Screen";
   }
 });
@@ -94,13 +93,13 @@ fullScreenButton.addEventListener("click", () => {
 document.addEventListener("fullscreenchange", () => {
   if (!document.fullscreenElement) {
     overlay.style.pointerEvents = "auto";
-    gameFrame.style.width = "80%";
-    gameFrame.style.height = "80%";
+    gameFrame.style.width = "90vw";
+    gameFrame.style.height = "80vh";
     fullScreenButton.textContent = "Full Screen";
   } else {
     overlay.style.pointerEvents = "none";
-    gameFrame.style.width = "100%";
-    gameFrame.style.height = "100%";
+    gameFrame.style.width = "100vw";
+    gameFrame.style.height = "100vh";
     fullScreenButton.textContent = "Exit Full Screen";
   }
 });
