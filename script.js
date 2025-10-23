@@ -1,19 +1,7 @@
 const games = [
-  { 
-    name: "Tiny Fishing", 
-    url: "games/tinyfishing/index.html", 
-    image: "games/tinyfishing/tiny-fishing.png"
-  },
-  { 
-    name: "Slope", 
-    url: "games/slope/index.html", 
-    image: "games/slope/thumb.png"
-  },
-  { 
-    name: "Retro Bowl", 
-    url: "games/retro-bowl/index.html", 
-    image: "games/retro-bowl/thumby.jpg"
-  },
+  { name: "Tiny Fishing", url: "games/tinyfishing/index.html", image: "games/tinyfishing/tiny-fishing.png" },
+  { name: "Slope", url: "games/slope/index.html", image: "games/slope/thumb.png" },
+  { name: "Retro Bowl", url: "games/retro-bowl/index.html", image: "games/retro-bowl/thumby.jpg" },
 ];
 
 const gameList = document.getElementById("gameList");
@@ -44,7 +32,7 @@ games.forEach(game => {
   gameList.appendChild(div);
 });
 
-// LOAD GAME
+// LOAD GAME WITH FADE
 function loadGame(game) {
   overlay.style.opacity = "1";
   overlay.style.pointerEvents = "auto";
@@ -52,20 +40,20 @@ function loadGame(game) {
   searchInput.style.opacity = 0;
 
   setTimeout(() => {
+    gameList.style.display = "flex";
     gameList.style.display = "none";
     searchInput.style.display = "none";
     gameView.style.display = "flex";
     gameFrame.src = game.url;
-    gameFrame.style.width = "80%";
-    gameFrame.style.height = "80%";
+    gameFrame.style.opacity = 0;
     backButton.style.display = "inline-block";
+
+    setTimeout(() => gameFrame.style.opacity = 1, 50);
   }, 400);
 }
 
 // BACK BUTTON
-backButton.addEventListener("click", () => {
-  exitGameView();
-});
+backButton.addEventListener("click", () => exitGameView());
 
 // FULLSCREEN BUTTON
 fullScreenButton.addEventListener("click", () => {
@@ -80,7 +68,7 @@ fullScreenButton.addEventListener("click", () => {
   }
 });
 
-// HANDLE ESC / FULLSCREEN EXIT
+// FULLSCREEN EXIT HANDLER
 document.addEventListener("fullscreenchange", () => {
   if (!document.fullscreenElement) {
     fullScreenButton.textContent = "Full Screen";
@@ -119,17 +107,20 @@ closeUpdates.addEventListener("click", () => {
 
 // EXIT GAME VIEW
 function exitGameView() {
-  gameFrame.src = "";
-  gameView.style.display = "none";
-  overlay.style.opacity = "0";
-  overlay.style.pointerEvents = "none";
-  gameList.style.display = "grid";
-  gameList.style.opacity = 1;
-  searchInput.style.display = "block";
-  searchInput.style.opacity = 1;
-  backButton.style.display = "none";
-  fullScreenButton.textContent = "Full Screen";
-  gameFrame.style.width = "80%";
-  gameFrame.style.height = "80%";
-  if (document.fullscreenElement) document.exitFullscreen();
+  gameFrame.style.opacity = 0;
+  setTimeout(() => {
+    gameFrame.src = "";
+    gameView.style.display = "none";
+    overlay.style.opacity = "0";
+    overlay.style.pointerEvents = "none";
+    gameList.style.display = "flex";
+    gameList.style.opacity = 1;
+    searchInput.style.display = "block";
+    searchInput.style.opacity = 1;
+    backButton.style.display = "none";
+    fullScreenButton.textContent = "Full Screen";
+    gameFrame.style.width = "80%";
+    gameFrame.style.height = "80%";
+    if (document.fullscreenElement) document.exitFullscreen();
+  }, 300);
 }
