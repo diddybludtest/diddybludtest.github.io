@@ -1,5 +1,5 @@
 const games = [
-  { name: "Tiny Fishing", url: "games/html5game/index.html" },
+  { name: "Tiny Fishing", url: "games/tinyfishing/index.html" },
 ];
 
 
