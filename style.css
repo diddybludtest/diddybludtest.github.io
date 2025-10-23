@@ -49,14 +49,14 @@ p {
   box-shadow: 0 0 12px #00e5ff80;
 }
 
-/* 🕹️ Game Grid */
+/* 🕹️ Game Buttons Row */
 .games {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 30px;
-  width: fit-content;
+  display: flex;
+  flex-direction: row;       /* horizontal row */
+  flex-wrap: wrap;           /* wrap if needed */
+  justify-content: center;   /* center horizontally */
+  gap: 30px;                 /* spacing between cards */
   margin: 40px auto;
-  justify-content: center;
 }
 
 /* ✨ Fade-in Animation */
@@ -72,8 +72,8 @@ p {
   opacity: 0;
   animation: fadeIn 0.6s ease forwards;
   transition: transform 0.2s;
-  height: 250px;
   width: 200px;
+  height: 250px;
   margin: auto;
 }
 
@@ -155,13 +155,16 @@ p {
   border-radius: 12px;
 }
 
-/* 🎛️ Buttons */
+/* 🎛️ Buttons Row */
 .game-buttons {
   margin-top: 15px;
   display: flex;
-  gap: 15px;
+  gap: 15px;       
+  justify-content: center;
+  flex-wrap: wrap; /* wrap if screen is small */
 }
 
+/* Back & Full Screen Buttons */
 #backButton, #fullScreenButton {
   padding: 12px 30px;
   font-size: 1rem;
