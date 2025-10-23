@@ -7,7 +7,6 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
 header {
@@ -118,6 +117,8 @@ header p {
 #gameFrame {
   border: none;
   border-radius: 10px;
+  width: 80%;
+  height: 80%;
   transition: width 0.4s, height 0.4s;
 }
 
@@ -136,7 +137,7 @@ header p {
 }
 
 /* BUTTONS */
-#backButton, #fullScreenButton, #updatesButton {
+button {
   padding: 10px 20px;
   margin: 10px;
   font-size: 1em;
@@ -148,18 +149,17 @@ header p {
   transition: transform 0.2s, background 0.3s;
 }
 
-#backButton:hover, #fullScreenButton:hover, #updatesButton:hover {
+button:hover {
   transform: scale(1.05);
   background: #333;
 }
 
-/* FOOTER */
-footer {
-  margin-top: auto;
-  text-align: center;
-  padding: 15px;
-  font-size: 0.9em;
-  color: #aaa;
+#updatesButton {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
 }
 
 /* UPDATES OVERLAY */
@@ -193,21 +193,5 @@ footer {
 
 #updatesOverlay p {
   font-size: 1.2em;
-  margin-bottom: 30px;
-}
-
-#closeUpdates {
-  padding: 10px 20px;
-  font-size: 1em;
-  border: none;
-  border-radius: 10px;
-  background: #1f1f1f;
-  color: #fff;
-  cursor: pointer;
-  transition: transform 0.2s, background 0.3s;
-}
-
-#closeUpdates:hover {
-  transform: scale(1.05);
-  background: #333;
+  margin-bottom: 15px;
 }
