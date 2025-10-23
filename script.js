@@ -2,7 +2,7 @@ const games = [
   { 
     name: "Tiny Fishing", 
     url: "games/tinyfishing/index.html", 
-    image: "games/tinyfishing/thumbnail.jpg" // optional image
+    image: "games/tinyfishing/tiny-fishing.png" // optional image
   },
   { 
     name: "Baldi's Basics", 
