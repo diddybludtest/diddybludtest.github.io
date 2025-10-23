@@ -7,7 +7,6 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  overflow-x: hidden;
   text-align: center;
 }
 
@@ -15,17 +14,8 @@ body {
 header {
   padding: 20px;
 }
-
-header h1 {
-  margin: 0;
-  font-size: 2em;
-}
-
-header p {
-  margin: 5px 0 15px;
-  font-size: 1em;
-  color: #aaa;
-}
+header h1 { margin: 0; font-size: 2em; }
+header p { margin: 5px 0 15px; font-size: 1em; color: #aaa; }
 
 /* SEARCH INPUT */
 #search {
@@ -35,18 +25,19 @@ header p {
   border-radius: 8px;
   border: none;
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
   transition: opacity 0.4s ease;
 }
 
-/* GAME GRID (HORIZONTAL ROW) */
+/* GAME GRID */
 .games {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  gap: 30px;
   justify-content: center;
-  margin: 40px auto;
-  transition: opacity 0.4s ease;
+  gap: 30px;
+  padding: 20px;
+  transition: opacity 0.4s;
 }
 
 /* GAME CARD */
@@ -68,9 +59,7 @@ header p {
   transform-style: preserve-3d;
 }
 
-.game:hover .game-inner {
-  transform: rotateY(180deg);
-}
+.game:hover .game-inner { transform: rotateY(180deg); }
 
 .game-front, .game-back {
   position: absolute;
@@ -99,10 +88,7 @@ header p {
   margin-bottom: 10px;
 }
 
-.game-front h3 {
-  font-size: 1.1em;
-  margin: 0;
-}
+.game-front h3 { font-size: 1.1em; margin: 0; }
 
 .game-back {
   background: #444;
@@ -129,7 +115,35 @@ header p {
   width: 80%;
   height: 80%;
   transition: width 0.4s, height 0.4s, opacity 0.4s ease;
-  z-index: 20;
+  z-index: 11;
+}
+
+/* GAME BUTTONS */
+.game-buttons {
+  margin-top: 15px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+#backButton, #fullScreenButton, #updatesButton {
+  padding: 12px 30px;
+  font-size: 1rem;
+  border: 2px solid #00bcd4;
+  border-radius: 12px;
+  background-color: #1a1a1a;
+  color: #00e5ff;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  z-index: 12;
+  position: relative;
+}
+
+#backButton:hover, #fullScreenButton:hover, #updatesButton:hover {
+  background: #00bcd4;
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #00e5ff80;
 }
 
 /* OVERLAY DIM */
@@ -143,43 +157,7 @@ header p {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
-  z-index: 15;
-}
-
-/* BUTTONS */
-button {
-  padding: 12px 30px;
-  font-size: 1rem;
-  border: 2px solid #00bcd4;
-  border-radius: 12px;
-  background-color: #1a1a1a;
-  color: #00e5ff;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  margin: 10px;
-}
-
-button:hover {
-  background: #00bcd4;
-  color: #fff;
-  transform: scale(1.05);
-  box-shadow: 0 0 12px #00e5ff80;
-}
-
-/* BACK BUTTON */
-#backButton {
-  display: none;
-  margin: 15px auto 40px auto;
-  padding: 12px 30px;
-  font-size: 1rem;
-  border: 2px solid #00bcd4;
-  border-radius: 12px;
-  background-color: #1a1a1a;
-  color: #00e5ff;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  z-index: 21;
-  position: relative;
+  z-index: 5;
 }
 
 /* UPDATES OVERLAY */
@@ -198,45 +176,16 @@ button:hover {
   text-align: center;
   padding: 20px;
   z-index: 25;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.4s;
 }
-
-#updatesOverlay.show {
-  display: flex;
-  opacity: 1;
-}
-
-#updatesOverlay h1 {
-  font-size: 3em;
-  margin-bottom: 20px;
-}
-
-#updatesOverlay p {
-  font-size: 1.2em;
-  margin-bottom: 10px;
-}
+#updatesOverlay.show { display: flex; opacity: 1; }
+#updatesOverlay h1 { font-size: 3em; margin-bottom: 20px; }
+#updatesOverlay p { font-size: 1.2em; margin-bottom: 10px; }
 
 /* FOOTER */
-footer {
-  margin-top: auto;
-  color: #777;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-footer a {
-  color: #00bcd4;
-  text-decoration: none;
-  transition: 0.2s;
-}
-
-footer a:hover {
-  color: #00e5ff;
-  text-decoration: underline;
-}
+footer { margin-top: auto; color: #777; font-size: 0.9rem; text-align: center; }
+footer a { color: #00bcd4; text-decoration: none; transition: 0.2s; }
+footer a:hover { color: #00e5ff; text-decoration: underline; }
 
 /* FADE IN ANIMATION */
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeIn { 0% { opacity:0; transform: translateY(10px); } 100% { opacity:1; transform: translateY(0); } }
