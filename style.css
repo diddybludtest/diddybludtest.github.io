@@ -43,7 +43,8 @@ header p {
   justify-content: center;
   gap: 20px;
   padding: 20px;
-  transition: opacity 0.4s;
+  opacity: 1;
+  transition: opacity 0.5s;
 }
 
 /* GAME CARD */
@@ -109,15 +110,21 @@ header p {
 
 /* GAME VIEW */
 #gameView {
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   width: 100vw;
   height: 100vh;
-  z-index: 2;
-  transition: opacity 0.4s;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+}
+
+#gameView.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 #gameFrame {
@@ -141,8 +148,12 @@ header p {
   background: rgba(0,0,0,0.5);
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.4s;
+  transition: opacity 0.5s;
   z-index: 1;
+}
+
+#overlay.show {
+  opacity: 1;
 }
 
 /* BUTTONS */
@@ -173,7 +184,10 @@ header p {
 
 /* UPDATES OVERLAY */
 #updatesOverlay {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -181,18 +195,17 @@ header p {
   height: 100%;
   background: #121212;
   color: #fff;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   text-align: center;
   padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
   z-index: 20;
-  transition: opacity 0.4s;
 }
 
 #updatesOverlay.show {
-  display: flex;
   opacity: 1;
+  pointer-events: auto;
 }
 
 #updatesOverlay h1 {
