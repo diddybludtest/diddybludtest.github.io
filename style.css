@@ -46,7 +46,7 @@ p {
 #search:focus {
   border-color: #00e5ff;
   background: #111;
-  box-shadow: 0 0 12px #00bcd480;
+  box-shadow: 0 0 12px #00e5ff80;
 }
 
 /* 🕹️ Game Grid */
@@ -61,14 +61,8 @@ p {
 
 /* ✨ Fade-in Animation */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* 🧱 Game Card */
@@ -111,7 +105,7 @@ p {
   backface-visibility: hidden;
   overflow: hidden;
   background: #1a1a1a;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
 .game-front img {
@@ -177,6 +171,8 @@ p {
   color: #00e5ff;
   cursor: pointer;
   transition: all 0.25s ease;
+  z-index: 100;
+  position: relative;
 }
 
 #backButton:hover, #fullScreenButton:hover {
