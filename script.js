@@ -16,41 +16,43 @@ const searchInput = document.getElementById("search");
 const gameFrame = document.getElementById("gameFrame");
 const backButton = document.getElementById("backButton");
 
+// Display game cards
 function displayGames(list) {
   gameList.innerHTML = "";
   list.forEach(game => {
-    const div = document.createElement("div");
-    div.className = "game";
+    const card = document.createElement("div");
+    card.className = "game-card";
 
-    // try to load the image, fallback to name if it fails
-    const img = new Image();
-    img.src = game.image;
-    img.className = "game-thumb";
-    img.alt = game.name;
+    // Front (image or name)
+    const front = document.createElement("div");
+    front.className = "card-front";
 
-    img.onerror = () => {
-      div.innerHTML = `<div class="no-thumb"><h3>${game.name}</h3></div>`;
-    };
-    img.onload = () => {
-      div.innerHTML = `
-        <img src="${game.image}" alt="${game.name}" class="game-thumb">
-        <h3>${game.name}</h3>
-      `;
-    };
+    if (game.image) {
+      front.innerHTML = `<img src="${game.image}" alt="${game.name}" class="game-thumb">`;
+    } else {
+      front.innerHTML = `<div class="no-thumb"><h3>${game.name}</h3></div>`;
+    }
 
-    // smooth hover tween
-    div.addEventListener("mouseenter", () => {
-      div.style.transform = "scale(1.05)";
-      div.style.transition = "transform 0.2s";
-    });
-    div.addEventListener("mouseleave", () => {
-      div.style.transform = "scale(1)";
-    });
+    // Back (game name)
+    const back = document.createElement("div");
+    back.className = "card-back";
+    back.innerHTML = `<h3>${game.name}</h3><p>Click to Play</p>`;
 
-    // load game on click
-    div.addEventListener("click", () => loadGame(game));
+    // Card structure
+    const inner = document.createElement("div");
+    inner.className = "card-inner";
+    inner.appendChild(front);
+    inner.appendChild(back);
+    card.appendChild(inner);
 
-    gameList.appendChild(div);
+    // Flip animation
+    card.addEventListener("mouseenter", () => inner.classList.add("flipped"));
+    card.addEventListener("mouseleave", () => inner.classList.remove("flipped"));
+
+    // Load game on click
+    card.addEventListener("click", () => loadGame(game));
+
+    gameList.appendChild(card);
   });
 }
 
