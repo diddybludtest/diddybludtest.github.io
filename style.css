@@ -1,117 +1,40 @@
-/* ===== General Layout ===== */
-body {
-  font-family: 'Poppins', sans-serif;
-  background: #0f172a;
-  color: #f8fafc;
-  text-align: center;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* ===== Header ===== */
-header {
-  background: #1e293b;
-  padding: 25px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-h1 { margin: 0; font-size: 2rem; color: #38bdf8; }
-header p { color: #94a3b8; font-size: 14px; margin-top: 5px; }
-
-/* ===== Search Bar ===== */
-#search {
-  width: 60%;
-  max-width: 500px;
-  padding: 10px;
-  margin-top: 15px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  background: #334155;
-  color: white;
-}
-
-/* ===== Games Grid ===== */
 .games {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
-  padding: 40px;
-  justify-content: center; /* CENTER THE GRID ITEMS */
-  max-width: 1200px;
-  margin: 0 auto; /* CENTER THE GRID CONTAINER */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  justify-items: center;
+  padding: 20px;
 }
 
 .game {
-  background: #1e293b;
-  border-radius: 10px;
-  padding: 15px;
-  transition: transform 0.2s, background 0.3s;
-  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  background: #1e1e1e;
+  border-radius: 12px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  width: 180px;
+  padding: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .game:hover {
-  transform: scale(1.05);
-  background: #334155;
-  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 }
 
-.game h3 {
-  margin: 10px 0;
-  font-size: 18px;
-  color: #e2e8f0;
-}
-
-/* ===== Game Player (iframe) ===== */
-iframe {
-  width: 90%;
-  max-width: 1000px;
-  height: 600px;
-  border: none;
-  border-radius: 10px;
-  margin: 25px auto;
-  display: none;
-  box-shadow: 0 0 20px rgba(0,0,0,0.4);
-  display: block; /* ensures iframe is block-level and can center with margin */
-}
-
-/* ===== Back Button ===== */
-#backButton {
-  display: none;
-  margin: 15px auto;
-  background: #38bdf8;
-  border: none;
-  padding: 10px 25px;
+.game-thumb {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
   border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #0f172a;
-  cursor: pointer;
-  display: block;
 }
 
-#backButton:hover { background: #0ea5e9; }
-
-/* ===== Footer ===== */
-footer {
-  background: #1e293b;
-  padding: 15px;
-  font-size: 14px;
-  color: #94a3b8;
-  margin-top: auto;
-}
-
-footer a { color: #38bdf8; text-decoration: none; }
-footer a:hover { text-decoration: underline; }
-
-/* ===== Responsive Design ===== */
-@media (max-width: 768px) {
-  iframe { height: 400px; }
-  #search { width: 80%; }
-  .games { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.no-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  background: #333;
+  border-radius: 8px;
+  color: #aaa;
 }
