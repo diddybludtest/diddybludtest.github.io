@@ -46,14 +46,11 @@ header p {
 
 /* Game List Layout */
 .games {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 2rem;
-  overflow-x: auto;
-  padding: 1rem;
-  scrollbar-width: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 25px;
+  padding: 30px;
+  justify-items: center;
 }
 
 .games::-webkit-scrollbar {
@@ -62,35 +59,43 @@ header p {
 
 /* Game Cards */
 .game {
-  background: #1a1a1a;
-  border: 2px solid #ff0077;
-  border-radius: 12px;
+  background: #141414;
+  border: 2px solid #2a2a2a;
+  border-radius: 15px;
+  padding: 12px;
   width: 180px;
   height: 220px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  overflow: hidden;
+  justify-content: space-between;
   cursor: pointer;
-  transition: all 0.3s ease;
-  animation: fadeInUp 0.5s ease forwards;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
+
 
 .game:hover {
-  transform: translateY(-5px) scale(1.05);
-  box-shadow: 0 0 15px #ff0077;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  border-color: #4afcff;
 }
 
+/* 🖼️ Game Image */
 .game img {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
+/* 🕹️ Game Title */
 .game h3 {
-  margin: 0.5rem 0;
   font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  margin: 0;
 }
 
 /* Overlay */
