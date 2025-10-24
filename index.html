@@ -11,34 +11,42 @@
   <header>
     <h1>diddyblud games</h1>
     <p>on diddy</p>
-    <input type="text" id="search" placeholder="Search for a game...">
+    <form id="searchForm" onsubmit="return false;">
+      <input type="text" id="search" placeholder="Search for a game..." aria-label="Search for a game">
+    </form>
   </header>
 
-  <div id="gameList" class="games"></div>
+  <main>
+    <div id="gameList" class="games" role="list"></div>
+  </main>
 
-  <div id="overlay"></div>
+  <div id="overlay" aria-hidden="true"></div>
 
-  <div id="gameView">
-    <iframe id="gameFrame"></iframe>
-    <div class="game-buttons">
+  <section id="gameView" aria-hidden="true">
+    <iframe id="gameFrame" title="Game Frame"></iframe>
+    <nav class="game-buttons" aria-label="Game Controls">
       <button id="backButton">Back to Menu</button>
       <button id="fullScreenButton">Full Screen</button>
-    </div>
-  </div>
+    </nav>
+  </section>
 
-  <button id="updatesButton">Updates</button>
+  <button id="updatesButton" aria-label="View Updates">Updates</button>
 
-  <div id="updatesOverlay">
+  <section id="updatesOverlay" aria-hidden="true">
     <h1>diddyblud games</h1>
     <p>Latest updates:</p>
-    <p>- Added Tiny Fishing</p>
-    <p>- Added Slope</p>
-    <p>- Added Retro Bowl</p>
+    <ul>
+      <li>Added Tiny Fishing</li>
+      <li>Added Slope</li>
+      <li>Added Retro Bowl</li>
+    </ul>
     <button id="closeUpdates">Close</button>
-  </div>
+  </section>
 
   <footer>
-    <p><a href="https://github.com/diddybludtest" target="_blank">GitHub Project</a> | hosted on GitHub Pages</p>
+    <p>
+      <a href="https://github.com/diddybludtest" target="_blank" rel="noopener noreferrer">GitHub Project</a> | hosted on GitHub Pages
+    </p>
   </footer>
 
   <script src="script.js"></script>
