@@ -29,17 +29,17 @@ function loadGames() {
       <img src="${game.image}" alt="${game.name}">
       <h3>${game.name}</h3>
     `;
-    div.addEventListener("click", () => openGame(game.link));
+    div.addEventListener("click", () => openGame(game.url)); // ✅ fixed here
     gameList.appendChild(div);
   });
 }
 
 // Open game with fade
-function openGame(link) {
+function openGame(url) {
   overlay.style.opacity = "1";
   overlay.style.pointerEvents = "auto";
   setTimeout(() => {
-    gameFrame.src = link;
+    gameFrame.src = url;
     gameView.style.display = "flex";
     setTimeout(() => gameView.style.opacity = "1", 50);
   }, 300);
