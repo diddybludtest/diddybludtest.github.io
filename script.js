@@ -1,6 +1,7 @@
 const games = [
   { name: "Tiny Fishing", url: "games/tinyfishing/index.html", image: "games/tinyfishing/tiny-fishing.png" },
   { name: "Slope", url: "games/slope/index.html", image: "games/slope/thumb.png" },
+  { name: "Basketball Stars", url: "games/basketball-stars/index.html", image: "games/slope/thumb.png" },
   { name: "Retro Bowl", url: "games/retro-bowl/index.html", image: "games/retro-bowl/thumby.jpg" },
 ];
 
