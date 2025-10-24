@@ -107,29 +107,35 @@ header p { margin: 5px 0 15px; font-size: 1em; color: #aaa; }
   display: none;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* start from top */
   position: relative;
   transition: opacity 0.4s;
   z-index: 20;
+  width: 100%;
+  min-height: 80vh; /* ensures enough vertical space */
 }
 
 #gameFrame {
   border: none;
   border-radius: 10px;
-  width: 80%;
-  height: 80%;
+  width: 90%;        /* slightly smaller than container width */
+  height: 70vh;      /* fixed vertical space for game */
   transition: width 0.4s, height 0.4s;
+  margin-top: 20px;
   z-index: 25;
 }
 
+
 /* GAME BUTTONS */
 .game-buttons {
-  margin-top: 15px;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   gap: 15px;
   flex-wrap: wrap;
+  z-index: 30;
 }
+
 
 button {
   padding: 12px 30px;
