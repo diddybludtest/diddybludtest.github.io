@@ -3,6 +3,7 @@ const games = [
   { name: "Slope", url: "games/slope/index.html", image: "games/slope/thumb.png" },
   { name: "Basketball Stars", url: "games/basketball-stars/index.html", image: "games/basketball-stars/basketball-stars.jpg" },
   { name: "Retro Bowl", url: "games/retro-bowl/index.html", image: "games/retro-bowl/thumby.jpg" },
+  { name: "The Worlds Hardest Game", url: "games/worlds-hardest-game/index.html", image: "games/worlds-hardest-game/thh.jpg" },
 ];
 
 // Elements
