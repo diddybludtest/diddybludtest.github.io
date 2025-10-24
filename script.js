@@ -15,10 +15,12 @@ const updatesButton = document.getElementById("updatesButton");
 const updatesOverlay = document.getElementById("updatesOverlay");
 const closeUpdates = document.getElementById("closeUpdates");
 
-// Display games
-games.forEach(game => {
+// Display games with cascading fade-in
+games.forEach((game, index) => {
   const div = document.createElement("div");
   div.className = "game";
+  div.style.animationDelay = `${index * 0.1}s`;
+  div.setAttribute("role", "listitem");
   div.innerHTML = `
     <div class="game-inner">
       <div class="game-front">
@@ -35,10 +37,11 @@ games.forEach(game => {
 // Load game
 function loadGame(game) {
   gameList.style.opacity = 0;
-  setTimeout(() => { gameList.style.display = "none"; }, 400);
-
   searchInput.style.opacity = 0;
-  setTimeout(() => { searchInput.style.display = "none"; }, 400);
+  setTimeout(() => { 
+    gameList.style.display = "flex" ? "none" : "flex";
+    searchInput.style.display = "none"; 
+  }, 400);
 
   overlay.style.opacity = 1;
   overlay.style.pointerEvents = "auto";
@@ -50,17 +53,20 @@ function loadGame(game) {
   gameFrame.src = game.url;
   gameFrame.style.width = "80%";
   gameFrame.style.height = "80%";
+  gameView.setAttribute("aria-hidden", "false");
+  overlay.setAttribute("aria-hidden", "false");
+
   fullScreenButton.textContent = "Full Screen";
 }
 
 // Back to menu
-backButton.addEventListener("click", exitGameView);
-
 function exitGameView() {
   gameFrame.src = "";
   gameView.style.opacity = 0;
   overlay.style.opacity = 0;
   overlay.style.pointerEvents = "none";
+  gameView.setAttribute("aria-hidden", "true");
+  overlay.setAttribute("aria-hidden", "true");
   setTimeout(() => { gameView.style.display = "none"; }, 400);
 
   gameList.style.display = "flex";
@@ -77,14 +83,12 @@ function exitGameView() {
   if (document.fullscreenElement) document.exitFullscreen();
 }
 
-// Fullscreen
+backButton.addEventListener("click", exitGameView);
+
+// Fullscreen toggle
 fullScreenButton.addEventListener("click", () => {
   if (!document.fullscreenElement) {
     gameView.requestFullscreen();
-    overlay.style.pointerEvents = "none";
-    gameFrame.style.width = "100%";
-    gameFrame.style.height = "100%";
-    fullScreenButton.textContent = "Exit Full Screen";
   } else {
     document.exitFullscreen();
   }
@@ -116,8 +120,23 @@ searchInput.addEventListener("input", e => {
 // Updates overlay
 updatesButton.addEventListener("click", () => {
   updatesOverlay.classList.add("show");
+  updatesOverlay.setAttribute("aria-hidden", "false");
 });
 
 closeUpdates.addEventListener("click", () => {
   updatesOverlay.classList.remove("show");
+  updatesOverlay.setAttribute("aria-hidden", "true");
+});
+
+// Keyboard support
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") exitGameView();
+});
+
+// Responsive iframe on window resize
+window.addEventListener("resize", () => {
+  if (!document.fullscreenElement) {
+    gameFrame.style.width = "80%";
+    gameFrame.style.height = "80%";
+  }
 });
