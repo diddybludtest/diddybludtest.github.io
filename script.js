@@ -1,4 +1,5 @@
 const games = [
+  { name: "Idle Breakout", url: "games/idle-breakout/index.html", image: "games/idle-breakout/thumy.png" },
   { name: "Tiny Fishing", url: "games/tinyfishing/index.html", image: "games/tinyfishing/tiny-fishing.png" },
   { name: "Slope", url: "games/slope/index.html", image: "games/slope/thumb.png" },
   { name: "Basketball Stars", url: "games/basketball-stars/index.html", image: "games/basketball-stars/basketball-stars.jpg" },
